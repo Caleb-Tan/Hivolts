@@ -8,6 +8,7 @@ import java.io.IOException;
 /**
  * Created by Caleb Tan on 9/26/2017.
  */
+
 public class Fence extends JPanel{
     BufferedImage fence = null;
     File f = null;
