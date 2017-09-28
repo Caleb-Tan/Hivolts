@@ -10,7 +10,7 @@ public class Grid extends JPanel {
 
     Grid () {
         try {
-            fence = ImageIO.read(new File("./res/fence.jpg"));
+            fence = ImageIO.read(new File("./res/fence.png"));
         } catch (IOException e){
             e.printStackTrace();
         }
