@@ -1,17 +1,19 @@
 import java.awt.*;
-import javax.swing.ImageIcon;
-import javax.swing.JPanel;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 
-public class Mho extends JPanel {
-	int xcor, ycor;
-	Image fence;
-    Mho(int x, int y) {
-        ImageIcon fenceIcon = new ImageIcon("../res/fence.jpg");
-        fence = fenceIcon.getImage();
-        xcor = x;
-        ycor = y;
+public class Mho extends Cell {
+    private BufferedImage mho;
+    Mho () {
+        try {
+            mho = ImageIO.read(new File("C:/Users/engtechp7/Desktop/Hivolts/Hivolts/res/mho.png"));
+        } catch (IOException e){
+            e.printStackTrace();
+        }
     }
-    public void paint(Graphics g) {
-        g.drawImage(fence, 0, 0, this);
+    protected BufferedImage getMho() {
+        return mho;
     }
 }
