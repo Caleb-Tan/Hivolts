@@ -1,2 +1,2 @@
 # Hivolts
-this is a highvolts projcect for school
+this is a hivolts project for school
