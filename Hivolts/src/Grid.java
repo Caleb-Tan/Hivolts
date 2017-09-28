@@ -8,7 +8,8 @@ public class Grid extends JPanel {
     };
 
     public void paint(Graphics g){
-        Color green = new Color(0,150,0);
+        Color green = new Color(10,130,0);
+        g.setColor(green);
         g.fillRect(0,0,960,960);
     }
 }

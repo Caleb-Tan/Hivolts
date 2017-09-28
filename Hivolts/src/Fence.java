@@ -1,25 +1,23 @@
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
 
 /**
  * Created by Caleb Tan on 9/26/2017.
  */
 
 public class Fence extends JPanel{
-    BufferedImage fence = null;
-    File f = null;
-
+    //BufferedImage fence = ImageIO.read(new File("../resources/fence.jpg"));
+    Image fence;
+    Fence() {
+        ImageIcon fenceIcon = new ImageIcon("../resources/fence.jpg");
+        fence = fenceIcon.getImage();
+    }
     public void paint(Graphics g){
-        f = new File("./fence.jpg");
-        try {
-            fence = ImageIO.read(f);
-        } catch (IOException e) {
-            System.out.println("Can't find image.");
-        }
-        g.drawImage(fence, 0, 0, null);
+
+        g.drawImage(fence, 0,0,this);
     }
 }
