@@ -11,7 +11,8 @@ public class Main {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(grid);	// adds the flag panel to the jframe
         frame.add(fence);
-        frame.pack();		// sizes frame so that all contents are at preferred sizes
+        frame.pack(); // sizes frame so that all contents are at preferred sizes
         frame.setVisible(true);
     }
+    
 }
