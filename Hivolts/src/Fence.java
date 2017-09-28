@@ -20,8 +20,7 @@ public class Fence extends JPanel {
         } catch (Exception e) {
             e.printStackTrace();
         }
-//        ImageIcon fenceIcon = new ImageIcon("../resources/fence.jpg");
-//        fence = fenceIcon.getImage();
+
     }
 
     @Override
