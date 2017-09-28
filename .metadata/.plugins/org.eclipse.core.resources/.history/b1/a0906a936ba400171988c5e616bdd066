@@ -7,8 +7,6 @@ import javax.swing.JPanel;
 
 public class Game extends JPanel {
     BufferedImage fence;
-    int[][] grid = new int[12][12];
-    int cellpad=5;
     
     Game () {
         try {
@@ -16,7 +14,6 @@ public class Game extends JPanel {
         } catch (IOException e){
             e.printStackTrace();
         }
-        //initsetup();
     }
 
     @Override
@@ -25,7 +22,9 @@ public class Game extends JPanel {
     }
 
     public void paint(Graphics g){
+
         super.paint(g);
+
         Color green = new Color(10,130,0);
         g.setColor(green);
         g.fillRect(0,0,785,785);
