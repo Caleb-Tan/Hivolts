@@ -18,7 +18,7 @@ public class Game extends JPanel {
 
     @Override
     public Dimension getPreferredSize() {
-        return new Dimension(1000,1000);
+        return new Dimension(785,785);
     }
 
     public void paint(Graphics g){
@@ -27,13 +27,13 @@ public class Game extends JPanel {
 
         Color green = new Color(10,130,0);
         g.setColor(green);
-        g.fillRect(0,0,960,960);
+        g.fillRect(0,0,785,785);
 
         paintFence(g);
     }
 
     private void paintFence(Graphics g) {
-    		for (int x=10; x<950; x+=70) {
+    		for (int x=5; x<780; x+=65) {
     			g.drawImage(fence, 0, x,null);
     		}
     }
