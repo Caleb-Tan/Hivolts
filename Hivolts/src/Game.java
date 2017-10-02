@@ -14,14 +14,14 @@ public class Game extends JPanel {
 
     @Override
     public Dimension getPreferredSize() {
-        return new Dimension(840,840);
+        return new Dimension(720,720);
     }
 
     public void paint(Graphics g){
         super.paint(g);
         Color green = new Color(10,130,0);
         g.setColor(green);
-        g.fillRect(0,0,840,840);
+        g.fillRect(0,0,720,720);
         cell.paintGrid(g);
         fence.paintFencePerimeter(g);
         generateMhos(g);
@@ -29,8 +29,8 @@ public class Game extends JPanel {
 
     private void generateMhos(Graphics g){
         Random random = new Random();       // get random object
-        Image[] mhoArray = new Image[12];             // array to store the mhos
-        int[] gridCoords = cell.getGridCoords();      // array to pick random grid coordinates
+        Image[] mhoArray = new Image[12];   // array to store the mhos
+        int[] gridCoords = cell.getGridCoords();  // pick random grid coordinates
 
         for (int i=0; i <= 11; i++){
             int x = random.nextInt(10)+1;

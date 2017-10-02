@@ -8,7 +8,7 @@ public class Mho extends Cell {
     private BufferedImage mho;
     Mho () {
         try {
-            mho = ImageIO.read(new File("C:/Users/engtechp7/Desktop/Hivolts/Hivolts/res/mho.png"));
+            mho = ImageIO.read(new File("./res/mho.png"));
         } catch (IOException e){
             e.printStackTrace();
         }

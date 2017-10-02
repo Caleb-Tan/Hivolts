@@ -11,7 +11,7 @@ public class Fence extends Cell {
     BufferedImage fence;
     Fence () {
         try {
-            fence = ImageIO.read(new File("C:/Users/engtechp7/Desktop/Hivolts/Hivolts/res/fence.png"));
+            fence = ImageIO.read(new File("./res/fence.png"));
         } catch (IOException e){
             e.printStackTrace();
         }
@@ -24,13 +24,13 @@ public class Fence extends Cell {
     protected void paintFencePerimeter(Graphics g) {
         // first for loop creates vertical fences
         for (int i=0; i<=11; i++) {
-            g.drawImage(fence, 5, getGridCoords()[i], null);    // paints ones on left
-            g.drawImage(fence,775, getGridCoords()[i], null);   // paints ones on right
+            g.drawImage(fence, 0, getGridCoords()[i], null);    // paints ones on left
+            g.drawImage(fence, 660, getGridCoords()[i], null);   // paints ones on right
         }
         // second for loop creates horizontal fences
         for (int i=1; i<=10; i++) {
-            g.drawImage(fence, getGridCoords()[i]+5, 0, null);  // paints top
-            g.drawImage(fence, getGridCoords()[i]+5, 770, null);  // paints bottom
+            g.drawImage(fence, getGridCoords()[i], 0, null);  // paints top
+            g.drawImage(fence, getGridCoords()[i], 660, null);  // paints bottom
         }
     }
 }
