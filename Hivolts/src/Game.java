@@ -2,7 +2,10 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
@@ -10,7 +13,8 @@ public class Game extends JPanel {
     // declare all the objects
     Cell cell = new Cell();
     Fence fence = new Fence();
-    Mho mho = new Mho();
+    ArrayList<Fence> fences = new ArrayList<Fence>();
+    ArrayList<Mho> mhos = new ArrayList<Mho>();
 
     @Override
     public Dimension getPreferredSize() {
@@ -24,19 +28,19 @@ public class Game extends JPanel {
         g.fillRect(0,0,840,840);
         cell.paintGrid(g);
         fence.paintFencePerimeter(g);
-        generateMhos(g);
+        generateMhos(g, 11);
     }
 
-    private void generateMhos(Graphics g){
-        Random random = new Random();       // get random object
-        Image[] mhoArray = new Image[12];             // array to store the mhos
-        int[] gridCoords = cell.getGridCoords();      // array to pick random grid coordinates
+    private void generateMhos(Graphics g, int max){
+        Random rand = new Random();
+        int[][] coords = cell.getGridCoords();
 
-        for (int i=0; i <= 11; i++){
-            int x = random.nextInt(10)+1;
-            int y = random.nextInt(10)+1;
-            mhoArray[i] = mho.getMho();
-            g.drawImage(mhoArray[i],gridCoords[x],gridCoords[y],null);
+
+        for (int i = 0; i <= 11; i++){
+            int x = rand.nextInt((max)+1);
+            int y = rand.nextInt((max)+1);
+            mhos.add(new Mho(g, x*70,coords[x][y]));
+
         }
     }
 }

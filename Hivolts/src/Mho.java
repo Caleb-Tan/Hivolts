@@ -6,6 +6,7 @@ import javax.imageio.ImageIO;
 
 public class Mho extends Cell {
     private BufferedImage mho;
+    int x, y;
     Mho () {
         try {
             mho = ImageIO.read(new File("C:/Users/engtechp7/Desktop/Hivolts/Hivolts/res/mho.png"));
@@ -13,7 +14,14 @@ public class Mho extends Cell {
             e.printStackTrace();
         }
     }
-    protected BufferedImage getMho() {
-        return mho;
+    /* coordinates for the mho object */
+    Mho (Graphics g, int x, int y){
+
+        paintMho(g, x, y);
     }
+
+    public void paintMho(Graphics g, int x, int y) {
+        g.drawImage(mho, x, y, null);
+    }
+
 }
