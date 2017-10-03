@@ -18,29 +18,29 @@ public class Game extends JPanel {
 
     @Override
     public Dimension getPreferredSize() {
-        return new Dimension(840,840);
+        return new Dimension(720,720);
     }
 
     public void paint(Graphics g){
         super.paint(g);
         Color green = new Color(10,130,0);
         g.setColor(green);
-        g.fillRect(0,0,840,840);
+        g.fillRect(0,0,720,720);
         cell.paintGrid(g);
         fence.paintFencePerimeter(g);
         generateMhos(g, 11);
     }
 
-    private void generateMhos(Graphics g, int max){
+
+    private void generateMhos(Graphics g, int max) {
         Random rand = new Random();
         int[][] coords = cell.getGridCoords();
 
 
-        for (int i = 0; i <= 11; i++){
-            int x = rand.nextInt((max)+1);
-            int y = rand.nextInt((max)+1);
-            mhos.add(new Mho(g, x*70,coords[x][y]));
-
+        for (int i = 0; i <= 11; i++) {
+            int x = rand.nextInt((max) + 1);
+            int y = rand.nextInt((max) + 1);
+            mhos.add(new Mho(g, x * 70, coords[x][y]));
         }
     }
 }

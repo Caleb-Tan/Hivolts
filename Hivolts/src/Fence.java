@@ -12,7 +12,7 @@ public class Fence extends Cell {
     int x, y;
     Fence () {
         try {
-            fence = ImageIO.read(new File("C:/Users/engtechp7/Desktop/Hivolts/Hivolts/res/fence.png"));
+            fence = ImageIO.read(new File("./res/fence.png"));
         } catch (IOException e){
             e.printStackTrace();
         }
@@ -31,7 +31,8 @@ public class Fence extends Cell {
         // second for loop creates horizontal fences
         for (int i=1; i<=10; i++) {
             g.drawImage(fence, getGridCoords()[0][i]+5, 0, null);  // paints top
-            g.drawImage(fence, getGridCoords()[0][i]+5, 770, null);  // paints bottom
+            g.drawImage(fence, getGridCoords()[0][i]+5, 775, null);  // paints bottom
+
         }
     }
 }
