@@ -15,7 +15,7 @@ public class Game extends JPanel implements KeyListener {
 
     @Override
     public Dimension getPreferredSize() {
-        return new Dimension(900,900);
+        return new Dimension(720,720);
     }
 
 
@@ -23,13 +23,13 @@ public class Game extends JPanel implements KeyListener {
         super.paint(g);
         Color green = new Color(10,130,0);
         g.setColor(green);
-        g.fillRect(0,0,840,840);       // fills background rectangle to be green
+        g.fillRect(0,0,720,720);       // fills background rectangle to be green
         fencePerimeter.paintFencePerimeter(g);             // paints fence perimeter (see method in Fence.java)
         generateElements(g);                               // calls method to generate elements
         player.paintPlayer(g);
     }
 
-    /* method that randomly generates the mhos, */
+    /* method that randomly generates the initial positions, */
     private void generateElements(Graphics g) {
         ArrayList<Integer> coords = cell.getGridCoords();                   // get the grid coords
         ArrayList<ArrayList<Integer>> shuffledCoords = new ArrayList<>();   // makes the arraylist that contains arraylists to represent each cell coord

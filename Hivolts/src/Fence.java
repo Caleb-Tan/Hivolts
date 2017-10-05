@@ -46,15 +46,14 @@ public class Fence extends Cell {
 
         // first for loop creates vertical fences
         for (int i=0; i<=11; i++) {
-            g.drawImage(fence, 5, getGridCoords().get(i), null);    // paints fences on left
-            g.drawImage(fence,775,getGridCoords().get(i), null);   // paints fences on right (770+5 for x value for offset)
+            g.drawImage(fence, 0, getGridCoords().get(i), null);    // paints fences on left
+            g.drawImage(fence, 660,getGridCoords().get(i), null);   // paints fences on right
         }
         // second for loop creates horizontal fences
         for (int i=1; i<=10; i++) {
-            g.drawImage(fence, getGridCoords().get(i)+5, 0, null);  // paints top
-            g.drawImage(fence, getGridCoords().get(i)+5, 770, null);  // paints bottom
+            g.drawImage(fence, getGridCoords().get(i), 0, null);  // paints top
+            g.drawImage(fence, getGridCoords().get(i), 660, null);  // paints bottom
 
         }
     }
-
 }
