@@ -26,6 +26,7 @@ public class Game extends JPanel implements KeyListener {
         g.fillRect(0,0,840,840);       // fills background rectangle to be green
         fencePerimeter.paintFencePerimeter(g);             // paints fence perimeter (see method in Fence.java)
         generateElements(g);                               // calls method to generate elements
+        player.paintPlayer(g);
     }
 
     /* method that randomly generates the mhos, */
@@ -66,7 +67,7 @@ public class Game extends JPanel implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_W){
-            up(g);
+            player.up();
         } else if (e.getKeyCode() == KeyEvent.VK_S) {
 
         } else if (e.getKeyCode() == KeyEvent.VK_A) {
@@ -83,7 +84,4 @@ public class Game extends JPanel implements KeyListener {
 
     }
 
-    void up(Graphics g){
-        player.up(g);
-    }
 }

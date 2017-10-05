@@ -10,7 +10,7 @@ public class Player {
 
     Player (Graphics g, int x, int y){
         try {
-            player = ImageIO.read(new File("./res/player.png"));
+            player = ImageIO.read(new File("C:/Users/engtechp7/Desktop/Hivolts/Hivolts/src/res/player.png"));
         } catch (IOException e){
             e.printStackTrace();
         }
@@ -20,12 +20,11 @@ public class Player {
         paintPlayer(g);
     }
 
-    private void paintPlayer(Graphics g) {
+    public void paintPlayer(Graphics g) {
         g.drawImage(player, x, y, null);
     }
 
-    public void up(Graphics g){
+    public void up(){
         y+=70;
-        paintPlayer(g);
     }
 }

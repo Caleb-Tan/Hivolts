@@ -11,7 +11,7 @@ public class Mho {
     /* coordinates for the mho object and creating the image */
     Mho (Graphics g, int x, int y){
         try {
-            mho = ImageIO.read(new File("./res/mho.png"));
+            mho = ImageIO.read(new File("C:/Users/engtechp7/Desktop/Hivolts/Hivolts/src/res/mho.png"));
         } catch (IOException e){
             e.printStackTrace();
         }

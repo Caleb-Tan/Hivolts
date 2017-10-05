@@ -15,7 +15,7 @@ public class Fence extends Cell {
     only paints the perimeter*/
     Fence () {
         try {
-            fence = ImageIO.read(new File("./res/fence.png"));
+            fence = ImageIO.read(new File("C:/Users/engtechp7/Desktop/Hivolts/Hivolts/src/res/fence.png"));
         } catch (IOException e){
             e.printStackTrace();
         }
@@ -26,7 +26,7 @@ public class Fence extends Cell {
     * because it calls the paint fence method which paints an individual fence*/
     Fence (Graphics g, int x, int y) {
         try {
-            fence = ImageIO.read(new File("./res/fence.png"));
+            fence = ImageIO.read(new File("C:/Users/engtechp7/Desktop/Hivolts/Hivolts/src/res/fence.png"));
         } catch (IOException e){
             e.printStackTrace();
         }
