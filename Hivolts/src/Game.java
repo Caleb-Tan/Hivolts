@@ -7,6 +7,13 @@ import javax.swing.JPanel;
 
 public class Game extends JPanel implements KeyListener {
 
+    Game(){
+        addKeyListener(this);
+        setFocusable(true);
+        requestFocusInWindow();
+    }
+
+
     private Cell cell = new Cell();                             // grid coordinates
     private Fence fencePerimeter = new Fence();                 // object used solely to paint the perimeter of the fence
     private Player player;                                  // declares player object to use later
@@ -66,16 +73,17 @@ public class Game extends JPanel implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_W){
+        int key = e.getKeyCode();
+
+        if (key == KeyEvent.VK_W){
             player.up();
-        } else if (e.getKeyCode() == KeyEvent.VK_S) {
-
-        } else if (e.getKeyCode() == KeyEvent.VK_A) {
-
-        } else if (e.getKeyCode() == KeyEvent.VK_D) {
-
+        } else if (key == KeyEvent.VK_S) {
+            player.down();
+        } else if (key == KeyEvent.VK_A) {
+            player.left();
+        } else if (key == KeyEvent.VK_D) {
+            player.right();
         }
-
         repaint();
     }
 
