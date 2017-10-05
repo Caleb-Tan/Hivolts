@@ -4,23 +4,24 @@ import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
-public class Mho extends Cell {
+public class Mho {
     private BufferedImage mho;
     int x, y;
-    Mho () {
+
+    /* coordinates for the mho object and creating the image */
+    Mho (Graphics g, int x, int y){
         try {
             mho = ImageIO.read(new File("./res/mho.png"));
         } catch (IOException e){
             e.printStackTrace();
         }
-    }
-    /* coordinates for the mho object */
-    Mho (Graphics g, int x, int y){
+        this.x = x;
+        this.y = y;
 
-        paintMho(g, x, y);
+        paintMho(g);
     }
 
-    public void paintMho(Graphics g, int x, int y) {
+    private void paintMho(Graphics g) {
         g.drawImage(mho, x, y, null);
     }
 
