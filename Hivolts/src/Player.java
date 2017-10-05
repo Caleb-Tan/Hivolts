@@ -16,16 +16,25 @@ public class Player {
         }
         this.x = x;
         this.y = y;
-
-        paintPlayer(g);
     }
 
-    private void paintPlayer(Graphics g) {
+    protected void paintPlayer(Graphics g) {
         g.drawImage(player, x, y, null);
     }
 
-    public void up(Graphics g){
-        y+=70;
-        paintPlayer(g);
+    protected void up(){
+        y+=60;
+    }
+
+    protected void down(){
+        y-=60;
+    }
+
+    protected void left() {
+        x-=60;
+    }
+
+    protected void right() {
+        x+=60;
     }
 }
