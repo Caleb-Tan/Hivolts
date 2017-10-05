@@ -4,13 +4,13 @@ import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
-public class Player {
+public class Player extends Cell{
     private BufferedImage player;
     int x, y;
 
-    Player (Graphics g, int x, int y){
+    Player (int x, int y){
         try {
-            player = ImageIO.read(new File("./res/player.png"));
+            player = ImageIO.read(new File(images.playerPath));
         } catch (IOException e){
             e.printStackTrace();
         }
@@ -23,11 +23,11 @@ public class Player {
     }
 
     protected void up(){
-        y+=60;
+        y-=60;
     }
 
     protected void down(){
-        y-=60;
+        y+=60;
     }
 
     protected void left() {

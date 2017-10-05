@@ -15,7 +15,7 @@ public class Fence extends Cell {
     only paints the perimeter*/
     Fence () {
         try {
-            fence = ImageIO.read(new File("C:/Users/engtechp7/Desktop/Hivolts/Hivolts/src/res/fence.png"));
+            fence = ImageIO.read(new File(images.fencePath));
         } catch (IOException e){
             e.printStackTrace();
         }
@@ -24,21 +24,19 @@ public class Fence extends Cell {
     /* assigns the x and y values to the fence and runs the paintFence method to paint
     * the randomly generated fence. this constructor is for the internal fences,
     * because it calls the paint fence method which paints an individual fence*/
-    Fence (Graphics g, int x, int y) {
+    Fence (int x, int y) {
         try {
-            fence = ImageIO.read(new File("C:/Users/engtechp7/Desktop/Hivolts/Hivolts/src/res/fence.png"));
+            fence = ImageIO.read(new File(images.fencePath));
         } catch (IOException e){
             e.printStackTrace();
         }
 
         this.x = x;
         this.y = y;
-
-        paintFence(g);
     }
 
 
-    private void paintFence(Graphics g) {
+    public void paintFence(Graphics g) {
         g.drawImage(fence, x, y, null);
     }
 

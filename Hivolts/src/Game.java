@@ -11,6 +11,7 @@ public class Game extends JPanel implements KeyListener {
         addKeyListener(this);
         setFocusable(true);
         requestFocusInWindow();
+        generateElements();   // calls method to generate elements
     }
 
 
@@ -31,14 +32,15 @@ public class Game extends JPanel implements KeyListener {
         g.setColor(green);
         g.fillRect(0,0,720,720); // fills background rectangle to be green
         fencePerimeter.paintFencePerimeter(g);  // paints fence perimeter (see method in Fence.java)
-        generateElements(g);   // calls method to generate elements
+        player.paintPlayer(g);
+        for (Fence fence : fences) fence.paintFence(g); // paints the fences in the array
+        for (Mho mho : mhos) mho.paintMho(g);           // paints the mhos in the array
     }
 
     /* method that randomly generates the initial positions, */
-    private void generateElements(Graphics g) {
-        ArrayList<Integer> coords = cell.getGridCoords();   // get the grid coords
-     // makes the arraylist that contains arraylists to represent each cell coord
-        ArrayList<ArrayList<Integer>> shuffledCoords = new ArrayList<>();
+    private void generateElements() {
+        ArrayList<Integer> coords = cell.getGridCoords();                   // get the grid coords
+        ArrayList<ArrayList<Integer>> shuffledCoords = new ArrayList<>();   // makes the arraylist that contains arraylists to represent each cell coord
         coords.remove(0);  // removes 70 and 770 so that only inside cells are considered
         coords.remove(10);
 
@@ -55,43 +57,49 @@ public class Game extends JPanel implements KeyListener {
         for (int i = 0; i <= 32; i++) {
             if (i <= 11) {
             	// first 12 of the shuffled coords are mhos
-                mhos.add(new Mho(g, shuffledCoords.get(i).get(0), shuffledCoords.get(i).get(1)));
+                mhos.add(new Mho(shuffledCoords.get(i).get(0), shuffledCoords.get(i).get(1)));
             } else if (i <= 31){
             	// next 20 of the shuffled coords are fences
-                fences.add(new Fence(g, shuffledCoords.get(i).get(0), shuffledCoords.get(i).get(1)));
+                fences.add(new Fence(shuffledCoords.get(i).get(0), shuffledCoords.get(i).get(1)));
             } else {
             	// 33rd coordinate is player
-                player = new Player(g, shuffledCoords.get(32).get(0), shuffledCoords.get(32).get(1));
+                player = new Player(shuffledCoords.get(32).get(0), shuffledCoords.get(32).get(1));
             }
         }
     }
 
 
     @Override
-    public void keyTyped(KeyEvent e) {
-
-    }
+    public void keyTyped(KeyEvent e) {}
 
 
     @Override
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
 
-        if (key == KeyEvent.VK_W){
-            player.up();
-        } else if (key == KeyEvent.VK_S) {
-            player.down();
-        } else if (key == KeyEvent.VK_A) {
-            player.left();
-        } else if (key == KeyEvent.VK_D) {
-            player.right();
+        switch (key){
+            case KeyEvent.VK_W: {
+                player.up();
+                break;
+            }
+            case KeyEvent.VK_S: {
+                player.down();
+                break;
+            }
+            case KeyEvent.VK_A: {
+                player.left();
+                break;
+            }
+            case KeyEvent.VK_D: {
+                player.right();
+                break;
+            }
         }
+
         repaint();
     }
 
     @Override
-    public void keyReleased(KeyEvent e) {
-
-    }
+    public void keyReleased(KeyEvent e) {}
 
 }
