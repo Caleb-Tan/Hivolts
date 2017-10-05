@@ -1,26 +1,20 @@
 import java.awt.*;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Map;
 
 /**
  * Created by engtechp7 on 9/28/2017.
  */
 public class Cell {
-	public int[][] getGridCoords() {
-		int[][] grid = new int[12][12];
-		int x = 0;     // counter
-		for (int i=0; i<=11; i++) {
-			for (int j = 0; j <= 11; j++) {
-				x = j * 60;
-        			grid[i][j] = x;
-	        	}
+	
+	public ArrayList<Integer> getGridCoords(){
+        ArrayList<Integer> grid = new ArrayList<>();
+        int x = 0;     // counter
+        for (int i = 0; i <= 11; i++) {
+            x = i * 60;
+            grid.add(x);
         }
         return grid;
-    }
-    public void paintGrid(Graphics g){
-        g.setColor(Color.black);
-        for (int i=0; i<=11; i++){
-        		g.drawLine(0, getGridCoords()[0][i], 720, getGridCoords()[0][i]);
-        		g.drawLine(getGridCoords()[0][i], 0, getGridCoords()[0][i], 720);
-        }
     }
 }
