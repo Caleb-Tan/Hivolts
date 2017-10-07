@@ -7,7 +7,7 @@ import java.io.IOException;
 /**
  * Created by engtechp7 on 9/28/2017.
  */
-public class Fence extends Cell {
+public class Fence extends Element {
     BufferedImage fence;
     int x, y;
 

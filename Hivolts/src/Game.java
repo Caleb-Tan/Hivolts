@@ -6,53 +6,47 @@ import java.util.Collections;
 import javax.swing.JPanel;
 
 public class Game extends JPanel implements KeyListener {
-	Game(){
-        addKeyListener(this);
-        setFocusable(true);
-        requestFocusInWindow();
-        generateElements();   // calls method to generate elements
-    }
-
-
-    private Cell cell = new Cell();                             // grid coordinates
+	private Element element = new Element();                             // grid coordinates
     private Player player;                                  // declares player object to use later
     private ArrayList<Fence> fences = new ArrayList<>();   // contains all the fences
-    private ArrayList<Mho> mhos = new ArrayList<>();         // contains all the mhos
-
-    @Override
-    public Dimension getPreferredSize() {
-        return new Dimension(720,720);
-    }
-
-    /* paints every single element */
-    public void paint(Graphics g){
-        super.paint(g);
-        Color green = new Color(10,130,0);
-        g.setColor(green);
-        g.fillRect(0,0,720,720); // fills background rectangle to be green
-
-        player.paintPlayer(g);                                  // paints the player
-        for (Fence fence : fences) fence.paintFence(g); // paints the fences
-        for (Mho mho : mhos) mho.paintMho(g);           // paints the mhos in the array
-
-        checkCollision();
-    }
-
-
-    /* generateElements() does 2 things:
+    private static ArrayList<Mho> mhos = new ArrayList<>();         // contains all the mhos
+    
+	Game() {
+		addKeyListener(this);
+		setFocusable(true);
+		requestFocusInWindow();
+		generateElements();   // calls method to generate elements
+	}
+	@Override
+	public Dimension getPreferredSize() {
+		return new Dimension(720,720);
+	}
+	//Paints everything
+	public void paint(Graphics g) {
+		super.paint(g);
+		Color green = new Color(10,130,0);
+		g.setColor(green);
+		g.fillRect(0,0,720,720); // fills background rectangle to be green
+		
+		player.paintPlayer(g);                          // paints the player
+		for (Fence fence : fences) fence.paintFence(g); // paints the fences
+		for (Mho mho : mhos) mho.paintMho(g);           // paints the mhos in the array
+		checkCollision();
+	}
+	/* generateElements() does 2 things:
     *   1) generates outer perimeter fences
     *   2) randomly generates internal fences, mho starting position, and player's starting position
     */
-    private void generateElements() {
-        ArrayList<Integer> coords = cell.getGridCoords();                   // get the grid coords
-        ArrayList<ArrayList<Integer>> shuffledCoords = new ArrayList<>();   
-        // makes the arraylist that contains arraylists to represent each cell coord
-
-        for (int i=0; i<=11; i++) {                              // creates the external fence objects
+	private void generateElements() {
+		ArrayList<Integer> coords = element.getGridCoords();                   // get the grid coords
+		ArrayList<ArrayList<Integer>> shuffledCoords = new ArrayList<>();   
+		// makes the arraylist that contains arraylists to represent each cell coord
+		
+		for (int i=0; i<=11; i++) {                              // creates the external fence objects
             fences.add(new Fence(0, coords.get(i)));
             fences.add(new Fence(660, coords.get(i)));
         }
-        for (int i=1; i<=10; i++){
+		for (int i=1; i<=10; i++){
             fences.add(new Fence(coords.get(i), 0));
             fences.add(new Fence(coords.get(i), 660));
         }
@@ -83,22 +77,25 @@ public class Game extends JPanel implements KeyListener {
                 player = new Player(shuffledCoords.get(32).get(0), shuffledCoords.get(32).get(1));
             }
         }
-
-    }
-
-    private void checkCollision(){
-        for (Fence fence : fences){
-           if (fence.x == player.x && fence.y == player.y){
-                System.out.println("game over");
-           }
-        }
-        for (Mho mho : mhos){
-            if (mho.x == player.x && mho.y == player.y){
+	}
+	
+	private void checkCollision() {
+		for (Fence fence : fences) {
+			if (fence.x == player.x && fence.y == player.y){
+				System.out.println("game over");
+			}
+		}
+		for (Mho mho : mhos) {
+			if (mho.x == player.x && mho.y == player.y){
                 System.out.println("game over");
             }
         }
     }
-
+	private static void moveMhos() {
+		for (Mho mho : mhos) {
+			
+		}
+    }
     @Override
     public void keyTyped(KeyEvent e) {}
     @Override
@@ -106,7 +103,6 @@ public class Game extends JPanel implements KeyListener {
     @Override
     public void keyReleased(KeyEvent e) {
         int key = e.getKeyCode();
-
         switch (key){
             case KeyEvent.VK_W: {
                 player.move("up");
@@ -141,6 +137,7 @@ public class Game extends JPanel implements KeyListener {
                 break;
             }
         }
+        moveMhos();
         repaint();
     }
 

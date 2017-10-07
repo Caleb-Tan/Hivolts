@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
-public class Mho extends Cell{
+public class Mho extends Element{
     private BufferedImage mho;
     int x, y;
 
