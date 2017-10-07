@@ -16,32 +16,48 @@ public class Game extends JPanel implements KeyListener {
 
 
     private Cell cell = new Cell();                             // grid coordinates
-    private Fence fencePerimeter = new Fence();  // object used solely to paint the perimeter of the fence
     private Player player;                                  // declares player object to use later
-    private ArrayList<Fence> fences = new ArrayList<Fence>();   // contains all the fences
-    private ArrayList<Mho> mhos = new ArrayList<Mho>();         // contains all the mhos
+    private ArrayList<Fence> fences = new ArrayList<>();   // contains all the fences
+    private ArrayList<Mho> mhos = new ArrayList<>();         // contains all the mhos
 
     @Override
     public Dimension getPreferredSize() {
         return new Dimension(720,720);
     }
 
+    /* paints every single element */
     public void paint(Graphics g){
         super.paint(g);
         Color green = new Color(10,130,0);
         g.setColor(green);
         g.fillRect(0,0,720,720); // fills background rectangle to be green
-        fencePerimeter.paintFencePerimeter(g);  // paints fence perimeter (see method in Fence.java)
-        player.paintPlayer(g);
-        for (Fence fence : fences) fence.paintFence(g); // paints the fences in the array
+
+        player.paintPlayer(g);                                  // paints the player
+        for (Fence fence : fences) fence.paintFence(g); // paints the fences
         for (Mho mho : mhos) mho.paintMho(g);           // paints the mhos in the array
+
+        checkCollision();
     }
 
-    /* method that randomly generates the initial positions, */
+
+    /* generateElements() does 2 things:
+    *   1) generates outer perimeter fences
+    *   2) randomly generates internal fences, mho starting position, and player's starting position
+    */
     private void generateElements() {
         ArrayList<Integer> coords = cell.getGridCoords();                   // get the grid coords
         ArrayList<ArrayList<Integer>> shuffledCoords = new ArrayList<>();   // makes the arraylist that contains arraylists to represent each cell coord
-        coords.remove(0);  // removes 70 and 770 so that only inside cells are considered
+
+        for (int i=0; i<=11; i++) {                                         // creates the external fence objects
+            fences.add(new Fence(0, coords.get(i)));
+            fences.add(new Fence(660, coords.get(i)));
+        }
+        for (int i=1; i<=10; i++){
+            fences.add(new Fence(coords.get(i), 0));
+            fences.add(new Fence(coords.get(i), 660));
+        }
+
+        coords.remove(0);  // removes 70 and 770 so that only inside cells are considered when randomly generating internal fences and mhos
         coords.remove(10);
 
         for (int i = 0; i <= 9; i++) {
@@ -68,6 +84,18 @@ public class Game extends JPanel implements KeyListener {
         }
     }
 
+    private void checkCollision(){
+        for (Fence fence : fences){
+           if (fence.x == player.x && fence.y == player.y){
+                System.out.println("game over");
+           }
+        }w
+        for (Mho mho : mhos){
+            if (mho.x == player.x && mho.y == player.y){
+                System.out.println("game over");
+            }
+        }
+    }
 
     @Override
     public void keyTyped(KeyEvent e) {}
@@ -75,31 +103,49 @@ public class Game extends JPanel implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
         int key = e.getKeyCode();
 
         switch (key){
             case KeyEvent.VK_W: {
-                player.up();
+                player.move("up");
                 break;
             }
             case KeyEvent.VK_S: {
-                player.down();
+                player.move("down");
                 break;
             }
             case KeyEvent.VK_A: {
-                player.left();
+                player.move("left");
                 break;
             }
             case KeyEvent.VK_D: {
-                player.right();
+                player.move("right");
+                break;
+            }
+            case KeyEvent.VK_Q: {
+                player.move("upLeft");
+                break;
+            }
+            case KeyEvent.VK_E: {
+                player.move("upRight");
+                break;
+            }
+            case KeyEvent.VK_Z: {
+                player.move("downLeft");
+                break;
+            }
+            case KeyEvent.VK_C: {
+                player.move("downRight");
                 break;
             }
         }
-
         repaint();
     }
 
-    @Override
-    public void keyReleased(KeyEvent e) {}
+
 
 }

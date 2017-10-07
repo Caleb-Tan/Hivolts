@@ -22,19 +22,37 @@ public class Player extends Cell{
         g.drawImage(player, x, y, null);
     }
 
-    protected void up(){
-        y-=60;
+    protected void move(String movement){
+        switch (movement) {
+            case "up":
+                y-=60;
+                break;
+            case "down":
+                y+=60;
+                break;
+            case "left":
+                x-=60;
+                break;
+            case "right":
+                x+=60;
+                break;
+            case "upLeft":
+                x-=60;
+                y-=60;
+                break;
+            case "upRight":
+                x+=60;
+                y-=60;
+                break;
+            case "downLeft":
+                x-=60;
+                y+=60;
+                break;
+            case "downRight":
+                x+=60;
+                y+=60;
+                break;
+        }
     }
 
-    protected void down(){
-        y+=60;
-    }
-
-    protected void left() {
-        x-=60;
-    }
-
-    protected void right() {
-        x+=60;
-    }
 }
