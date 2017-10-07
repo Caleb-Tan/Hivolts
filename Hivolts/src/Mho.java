@@ -22,5 +22,4 @@ public class Mho extends Cell{
     public void paintMho(Graphics g) {
         g.drawImage(mho, x, y, null);
     }
-
 }
