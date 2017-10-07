@@ -45,9 +45,10 @@ public class Game extends JPanel implements KeyListener {
     */
     private void generateElements() {
         ArrayList<Integer> coords = cell.getGridCoords();                   // get the grid coords
-        ArrayList<ArrayList<Integer>> shuffledCoords = new ArrayList<>();   // makes the arraylist that contains arraylists to represent each cell coord
+        ArrayList<ArrayList<Integer>> shuffledCoords = new ArrayList<>();   
+        // makes the arraylist that contains arraylists to represent each cell coord
 
-        for (int i=0; i<=11; i++) {                                         // creates the external fence objects
+        for (int i=0; i<=11; i++) {                              // creates the external fence objects
             fences.add(new Fence(0, coords.get(i)));
             fences.add(new Fence(660, coords.get(i)));
         }
@@ -100,12 +101,8 @@ public class Game extends JPanel implements KeyListener {
 
     @Override
     public void keyTyped(KeyEvent e) {}
-
-
     @Override
-    public void keyPressed(KeyEvent e) {
-    }
-
+    public void keyPressed(KeyEvent e) {}
     @Override
     public void keyReleased(KeyEvent e) {
         int key = e.getKeyCode();

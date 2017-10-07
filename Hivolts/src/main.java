@@ -3,7 +3,6 @@ import javax.swing.*;
 /**
  * Created by Caleb Tan on 9/26/2017.
  */
-// Absolute Path: C:/Users/engtechp7/Desktop/Hivolts/Hivolts/res/....
 public class main {
     public static void main(String[] args){
         Game game = new Game();				// creates grid object
