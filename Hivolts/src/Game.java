@@ -6,35 +6,33 @@ import java.util.Collections;
 import javax.swing.JPanel;
 
 public class Game extends JPanel implements KeyListener {
+	private Cell cell = new Cell();                             // grid coordinates
+    private Fence fencePerimeter = new Fence();  // object used solely to paint the perimeter of the fence
+    private Player player;                                  // declares player object to use later
+    private ArrayList<Fence> fences = new ArrayList<Fence>();   // contains all the fences
+    private ArrayList<Mho> mhos = new ArrayList<Mho>();         // contains all the mhos
+    
 	public Game () {
 		addKeyListener(this);
         setFocusable(true);
         requestFocusInWindow();
         generateElements();   // calls method to generate elements
 	}
-    private Cell cell = new Cell();                             // grid coordinates
-    private Fence fencePerimeter = new Fence();  // object used solely to paint the perimeter of the fence
-    private Player player;                                  // declares player object to use later
-    private ArrayList<Fence> fences = new ArrayList<Fence>();   // contains all the fences
-    private ArrayList<Mho> mhos = new ArrayList<Mho>();         // contains all the mhos
-
-    @Override
-    public Dimension getPreferredSize() {
-        return new Dimension(720,720);
-    }
-
-    public void paint(Graphics g){
-        super.paint(g);
+	public Dimension getPreferredSize() {
+		return new Dimension(720,720);
+	}
+	public void paint(Graphics g) {
+		super.paint(g);
         Color green = new Color(10,130,0);
         g.setColor(green);
         g.fillRect(0,0,720,720); // fills background rectangle to be green
         fencePerimeter.paintFencePerimeter(g);  // paints fence perimeter (see method in Fence.java)
-    }
-
+	}
+	
     /* method that randomly generates the initial positions, */
-    private void generateElements() {
-    		ArrayList<Integer> coords = cell.getGridCoords();   // get the grid coords
-     // makes the arraylist that contains arraylists to represent each cell coord
+	private void generateElements() {
+		ArrayList<Integer> coords = cell.getGridCoords();   // get the grid coords
+	     // makes the arraylist that contains arraylists to represent each cell coord
         ArrayList<ArrayList<Integer>> shuffledCoords = new ArrayList<>();
         coords.remove(0);  // removes 70 and 770 so that only inside cells are considered
         coords.remove(10);
@@ -61,13 +59,22 @@ public class Game extends JPanel implements KeyListener {
                 player = new Player(shuffledCoords.get(32).get(0), shuffledCoords.get(32).get(1));
             }
         }
-    }
-    public void moveMhos() {
-    	
-    }
-    @Override
-    public void keyPressed(KeyEvent e) {
-        int key = e.getKeyCode();
+	}
+	public void moveMhos() {
+		int px = player.x, py = player.y;
+		int mx, my;
+		for(int i=0; i<mhos.size(); i++) {
+			mx = mhos.get(i).x;
+			my = mhos.get(i).y;
+			
+		}
+	}
+	public void animMhos() {
+		
+	}
+	@Override
+	public void keyPressed(KeyEvent e) {
+		int key = e.getKeyCode();
 
         if (key == KeyEvent.VK_W){
             player.up();

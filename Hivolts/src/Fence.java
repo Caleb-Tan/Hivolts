@@ -36,7 +36,7 @@ public class Fence extends Cell {
     }
 
 
-    private void paintFence(Graphics g) {
+    public void paintFence(Graphics g) {
         g.drawImage(fence, x, y, null);
     }
 

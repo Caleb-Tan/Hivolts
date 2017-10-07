@@ -10,6 +10,9 @@
 		<item value="false" key="WizardProjectsImportPage.STORE_COPY_PROJECT_ID"/>
 		<item value="false" key="WizardProjectsImportPage.STORE_ARCHIVE_SELECTED"/>
 		<list key="WizardProjectsImportPage.STORE_DIRECTORIES">
+			<item value="/Users/brion/EclipseJava/JJN/AP-CS/HiVolts"/>
+			<item value="/Users/brion/EclipseJava/APCS/Scalable Flag"/>
+			<item value="/Users/brion/EclipseJava/APCS/Hivolts/Hivolts"/>
 			<item value="C:\Users\Dad\Desktop\Hivolts\Hivolts"/>
 		</list>
 		<list key="WizardProjectsImportPage.STORE_ARCHIVES">

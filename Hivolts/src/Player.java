@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
-public class Player {
+public class Player extends Cell{
     private BufferedImage player;
     int x, y;
 
@@ -21,7 +21,6 @@ public class Player {
     protected void paintPlayer(Graphics g) {
         g.drawImage(player, x, y, null);
     }
-    
     protected void up() {y+=60;}
     protected void down(){y-=60;}
     protected void left() {x-=60;}
