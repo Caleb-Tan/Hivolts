@@ -3,12 +3,13 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Random;
+import java.util.Set;
 
 import javax.swing.JPanel;
 
 public class Game extends JPanel implements KeyListener {
-	private Element element = new Element();                // grid coordinates
     private Player player;                                  // declares player object to use later
     static ArrayList<Fence> fences = new ArrayList<>();    // contains all the fences
     static ArrayList<Mho> mhos = new ArrayList<>();        // contains all the mhos
@@ -17,7 +18,12 @@ public class Game extends JPanel implements KeyListener {
 		addKeyListener(this);
 		setFocusable(true);
 		requestFocusInWindow();
-		generateElements();   // calls method to generate elements
+		startGame();
+	}
+	public void startGame() {
+		fences.clear();
+		mhos.clear();
+		generateElements();
 	}
 	@Override
 	public Dimension getPreferredSize() {
@@ -33,7 +39,7 @@ public class Game extends JPanel implements KeyListener {
 		player.paintPlayer(g);                          // paints the player
 		for (Fence fence : fences) fence.paintFence(g); // paints the fences
 		for (Mho mho : mhos) mho.paintMho(g);           // paints the mhos in the array
-		if (!isEmpty(player.x, player.y)) System.out.println("Game Over!");
+		if (!isEmpty(player.x, player.y)) System.out.print(".");
 	}
 	/* generateElements() does 2 things:
     *   1) generates outer perimeter fences
@@ -41,11 +47,11 @@ public class Game extends JPanel implements KeyListener {
     *   mho starting position, and player's starting position
     */
 	private void generateElements() {
-		ArrayList<Integer> coords = element.getGridCoords();     // get the grid coords
+		ArrayList<Integer> coords = Element.getGridCoords();     // get the grid coords
 		// makes the arraylist that contains arraylists to represent each cell coord
 		ArrayList<ArrayList<Integer>> shuffledCoords = new ArrayList<>();   
 		
-		for (int i=0; i<=11; i++) {                              // creates the external fence objects
+		for (int i=0; i<=11; i++) {                        // creates the external fence objects
             fences.add(new Fence(0, coords.get(i)));
             fences.add(new Fence(660, coords.get(i)));
         }
@@ -68,6 +74,9 @@ public class Game extends JPanel implements KeyListener {
         }
 
         Collections.shuffle(shuffledCoords); // shuffles the collection with each cell coord in it
+        Set<ArrayList<Integer>> test = new HashSet<ArrayList<Integer>>(shuffledCoords);
+        
+        System.out.println(shuffledCoords.size() == test.size());
         for (int i = 0; i <= 32; i++) {
             if (i <= 11) {
             	// first 12 of the shuffled coords are mhos
@@ -108,6 +117,7 @@ public class Game extends JPanel implements KeyListener {
     @Override
     public void keyReleased(KeyEvent e) {
     		int key = e.getKeyCode();
+    		if (key == KeyEvent.VK_R) startGame();
         player.move(key);
         moveMhos();
         repaint();

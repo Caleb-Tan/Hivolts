@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class Element {
     ImagePath images = new ImagePath();
 
-	public ArrayList<Integer> getGridCoords(){
+	public static ArrayList<Integer> getGridCoords(){
         ArrayList<Integer> grid = new ArrayList<>();
         int x = 0;     // counter
         for (int i = 0; i <= 11; i++) {
