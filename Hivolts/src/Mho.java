@@ -6,7 +6,6 @@ import javax.imageio.ImageIO;
 
 public class Mho extends Element{
     private BufferedImage mho;
-    int x, y;
 
     /* coordinates for the mho object and creating the image */
     Mho (int x, int y){
