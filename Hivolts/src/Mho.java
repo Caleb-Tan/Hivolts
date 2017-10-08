@@ -21,14 +21,21 @@ public class Mho extends Element {
 		g.drawImage(mho, x, y, null);
     }
 	
-    public void moveTowards(int px, int py) {
-    	if (x == px) {
-			if (y > py) move("up");
-			else if (y < py) move("down");
+	public void moveTowards(int px, int py) {
+		int rightOf, above;
+		
+		if (x < px) rightOf = 1;
+		else if (x == px) rightOf = 0;
+		else rightOf = -1;
+		if (y < py) above = 1;
+		else if (y == py) above = 0;
+		else above = -1;
+		
+	    	if ((rightOf == 0)||(above == 0)) {
+			move(rightOf, above);
 		}
-		else if (y == py) {
-			if (x > px) move("left");
-			else if (x < px) move("right");
+		else {
+			//if (Game.isEmpty(x+60*rightOf, y+60*above)) 
 		}
     }
 }

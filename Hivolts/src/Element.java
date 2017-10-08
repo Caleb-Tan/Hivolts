@@ -17,36 +17,8 @@ public class Element {
     }
 	
 	int x, y;
-	protected void move(String movement){
-        switch (movement) {
-            case "up":
-                y-=60;
-                break;
-            case "down":
-                y+=60;
-                break;
-            case "left":
-                x-=60;
-                break;
-            case "right":
-                x+=60;
-                break;
-            case "upLeft":
-                x-=60;
-                y-=60;
-                break;
-            case "upRight":
-                x+=60;
-                y-=60;
-                break;
-            case "downLeft":
-                x-=60;
-                y+=60;
-                break;
-            case "downRight":
-                x+=60;
-                y+=60;
-                break;
-        }
-    }
+	protected void move(int xrel, int yrel) {
+		x += 60 * xrel;
+		y += 60 * yrel;
+	}
 }

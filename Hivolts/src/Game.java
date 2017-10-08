@@ -10,8 +10,8 @@ import javax.swing.JPanel;
 public class Game extends JPanel implements KeyListener {
 	private Element element = new Element();                // grid coordinates
     private Player player;                                  // declares player object to use later
-    private ArrayList<Fence> fences = new ArrayList<>();    // contains all the fences
-    private ArrayList<Mho> mhos = new ArrayList<>();        // contains all the mhos
+    static ArrayList<Fence> fences = new ArrayList<>();    // contains all the fences
+    static ArrayList<Mho> mhos = new ArrayList<>();        // contains all the mhos
     
 	Game() {
 		addKeyListener(this);
@@ -33,7 +33,7 @@ public class Game extends JPanel implements KeyListener {
 		player.paintPlayer(g);                          // paints the player
 		for (Fence fence : fences) fence.paintFence(g); // paints the fences
 		for (Mho mho : mhos) mho.paintMho(g);           // paints the mhos in the array
-		checkCollision();
+		if (!isEmpty(player.x, player.y)) System.out.println("Game Over!");
 	}
 	/* generateElements() does 2 things:
     *   1) generates outer perimeter fences
@@ -82,17 +82,19 @@ public class Game extends JPanel implements KeyListener {
         }
 	}
 	
-	private void checkCollision() {
+	public static boolean isEmpty(int x, int y) {
+		boolean empty = true;
 		for (Fence fence : fences) {
-			if (fence.x == player.x && fence.y == player.y){
-				System.out.println("game over");
+			if (fence.x == x && fence.y == y){
+				empty = false;
 			}
 		}
 		for (Mho mho : mhos) {
-			if (mho.x == player.x && mho.y == player.y){
-                System.out.println("game over");
+			if (mho.x == x && mho.y == y){
+                empty = false;
             }
         }
+		return empty;
     }
 	private void moveMhos() {
 		for (int i=0; i<mhos.size(); i++) {
@@ -106,46 +108,7 @@ public class Game extends JPanel implements KeyListener {
     @Override
     public void keyReleased(KeyEvent e) {
     		int key = e.getKeyCode();
-        switch (key){
-            case KeyEvent.VK_W: {
-                player.move("up");
-                break;
-            }
-            case KeyEvent.VK_X: {
-                player.move("down");
-                break;
-            }
-            case KeyEvent.VK_A: {
-                player.move("left");
-                break;
-            }
-            case KeyEvent.VK_D: {
-                player.move("right");
-                break;
-            }
-            case KeyEvent.VK_Q: {
-                player.move("upLeft");
-                break;
-            }
-            case KeyEvent.VK_E: {
-                player.move("upRight");
-                break;
-            }
-            case KeyEvent.VK_Z: {
-                player.move("downLeft");
-                break;
-            }
-            case KeyEvent.VK_C: {
-            		player.move("downRight");
-            		break;
-            }
-            case KeyEvent.VK_S: {
-            		break;
-            }
-            default: {
-            		return;
-            }
-        }
+        player.move(key);
         moveMhos();
         repaint();
     }

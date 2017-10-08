@@ -11,7 +11,6 @@ public class Fence extends Element {
     BufferedImage fence;
     int x, y;
 
-
     /* assigns the x and y values to the fence when it is first created */
     Fence (int x, int y) {
         try {

@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -19,5 +20,49 @@ public class Player extends Element{
 
     protected void paintPlayer(Graphics g) {
         g.drawImage(player, x, y, null);
+    }
+    
+    protected void move(int key) {
+    	switch (key){
+        case KeyEvent.VK_W: {
+            move(0, -1);
+            break;
+        }
+        case KeyEvent.VK_X: {
+            move(0, 1);
+            break;
+        }
+        case KeyEvent.VK_A: {
+            move(-1, 0);
+            break;
+        }
+        case KeyEvent.VK_D: {
+            move(1, 0);
+            break;
+        }
+        case KeyEvent.VK_Q: {
+            move(-1, -1);
+            break;
+        }
+        case KeyEvent.VK_E: {
+            move(1, -1);
+            break;
+        }
+        case KeyEvent.VK_Z: {
+            move(-1, 1);
+            break;
+        }
+        case KeyEvent.VK_C: {
+        		move(1, 1);
+        		break;
+        }
+        case KeyEvent.VK_S: {
+        		move(0, 0);
+        		break;
+        }
+        default: {
+        		return;
+        }
+    }
     }
 }
