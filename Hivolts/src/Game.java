@@ -96,14 +96,7 @@ public class Game extends JPanel implements KeyListener {
     }
 	private void moveMhos() {
 		for (int i=0; i<mhos.size(); i++) {
-			if (mhos.get(i).x == player.x) {
-				if (mhos.get(i).y > player.y) mhos.get(i).move("down");
-				else mhos.get(i).move("up");
-			}
-			else if (mhos.get(i).y == player.y) {
-				if (mhos.get(i).x > player.x) mhos.get(i).move("right");
-				else mhos.get(i).move("left");
-			}
+			mhos.get(i).moveTowards(player.x, player.y);
 		}
     }
     @Override
