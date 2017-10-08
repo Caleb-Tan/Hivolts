@@ -6,10 +6,10 @@ import java.util.Collections;
 import javax.swing.JPanel;
 
 public class Game extends JPanel implements KeyListener {
-	private Element element = new Element();                             // grid coordinates
+	private Element element = new Element();                // grid coordinates
     private Player player;                                  // declares player object to use later
-    private ArrayList<Fence> fences = new ArrayList<>();   // contains all the fences
-    private static ArrayList<Mho> mhos = new ArrayList<>();         // contains all the mhos
+    private ArrayList<Fence> fences = new ArrayList<>();    // contains all the fences
+    private ArrayList<Mho> mhos = new ArrayList<>();        // contains all the mhos
     
 	Game() {
 		addKeyListener(this);
@@ -35,12 +35,13 @@ public class Game extends JPanel implements KeyListener {
 	}
 	/* generateElements() does 2 things:
     *   1) generates outer perimeter fences
-    *   2) randomly generates internal fences, mho starting position, and player's starting position
+    *   2) randomly generates internal fences, 
+    *   mho starting position, and player's starting position
     */
 	private void generateElements() {
-		ArrayList<Integer> coords = element.getGridCoords();                   // get the grid coords
-		ArrayList<ArrayList<Integer>> shuffledCoords = new ArrayList<>();   
+		ArrayList<Integer> coords = element.getGridCoords();     // get the grid coords
 		// makes the arraylist that contains arraylists to represent each cell coord
+		ArrayList<ArrayList<Integer>> shuffledCoords = new ArrayList<>();   
 		
 		for (int i=0; i<=11; i++) {                              // creates the external fence objects
             fences.add(new Fence(0, coords.get(i)));
@@ -64,7 +65,7 @@ public class Game extends JPanel implements KeyListener {
             }
         }
 
-        Collections.shuffle(shuffledCoords);     // shuffles the collection with each cell coord in it
+        Collections.shuffle(shuffledCoords); // shuffles the collection with each cell coord in it
         for (int i = 0; i <= 32; i++) {
             if (i <= 11) {
             	// first 12 of the shuffled coords are mhos
@@ -91,9 +92,21 @@ public class Game extends JPanel implements KeyListener {
             }
         }
     }
-	private static void moveMhos() {
+	private void moveMhos() {
 		for (Mho mho : mhos) {
-			
+			if (mho.x == player.x) {
+				System.out.println("match");
+				if (mho.y > player.y) {
+					System.out.println("down");
+					mho.move("down");
+				}
+				else mho.move("up");
+			}
+			else if (mho.y == player.y) {
+				System.out.println("match");
+				if (mho.x > player.x) mho.move("left");
+				else mho.move("right");
+			}
 		}
     }
     @Override
@@ -102,13 +115,13 @@ public class Game extends JPanel implements KeyListener {
     public void keyPressed(KeyEvent e) {}
     @Override
     public void keyReleased(KeyEvent e) {
-        int key = e.getKeyCode();
+    		int key = e.getKeyCode();
         switch (key){
             case KeyEvent.VK_W: {
                 player.move("up");
                 break;
             }
-            case KeyEvent.VK_S: {
+            case KeyEvent.VK_X: {
                 player.move("down");
                 break;
             }
@@ -133,8 +146,14 @@ public class Game extends JPanel implements KeyListener {
                 break;
             }
             case KeyEvent.VK_C: {
-                player.move("downRight");
-                break;
+            		player.move("downRight");
+            		break;
+            }
+            case KeyEvent.VK_S: {
+            		break;
+            }
+            default: {
+            		return;
             }
         }
         moveMhos();

@@ -10,7 +10,7 @@ public class main {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(game);	// adds the flag panel to the jframe
         frame.pack(); // sizes frame so that all contents are at preferred sizes
-        frame.setResizable(false);
+        //frame.setResizable(false);
         frame.setVisible(true);
     }
 }
