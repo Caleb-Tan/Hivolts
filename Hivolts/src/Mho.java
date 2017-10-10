@@ -37,7 +37,10 @@ public class Mho extends Element {
 			move(rightOf, above);
 		}
 		else {
-			if (Game.isEmpty(x-60*rightOf, y-60*above)) move(rightOf, above);
+			if (Game.isEmpty(x-60*rightOf, y-60*above)) {
+				System.out.println("it's empty yay: " + rightOf + " " + above);
+				move(rightOf, above);
+			}
 			else if (Game.isEmpty(x+60*rightOf*farx, y+60*above*(1-farx))) {
 				move(rightOf*farx, above*(1-farx));
 			}

@@ -21,6 +21,7 @@ public class Game extends JPanel implements KeyListener {
 		startGame();
 	}
 	public void startGame() {
+		System.out.println("Game Restarted");
 		fences.clear();
 		mhos.clear();
 		generateElements();
@@ -38,7 +39,7 @@ public class Game extends JPanel implements KeyListener {
 		
 		player.paintPlayer(g);                          // paints the player
 		for (Fence fence : fences) fence.paintFence(g); // paints the fences
-		for (Mho mho : mhos) mho.paintMho(g);           // paints the mhos in the array
+		for (Mho mho : mhos) mho.paintMho(g);           // paints the mhos
 		if (!isEmpty(player.x, player.y)) System.out.print(".");
 	}
 	/* generateElements() does 2 things:
@@ -72,22 +73,24 @@ public class Game extends JPanel implements KeyListener {
                 shuffledCoords.add(x);
             }
         }
-
-        Collections.shuffle(shuffledCoords); // shuffles the collection with each cell coord in it
-        Set<ArrayList<Integer>> test = new HashSet<ArrayList<Integer>>(shuffledCoords);
-        
-        System.out.println(shuffledCoords.size() == test.size());
+        int cx, cy;
+        // shuffles the collection with each cell coord in it
+        Collections.shuffle(shuffledCoords); 
         for (int i = 0; i <= 32; i++) {
+        		cx = shuffledCoords.get(i).get(0);
+        		cy = shuffledCoords.get(i).get(1);
+        		System.out.print(cx/60 +" "+ cy/60 +"\t");
             if (i <= 11) {
             	// first 12 of the shuffled coords are mhos
-                mhos.add(new Mho(shuffledCoords.get(i).get(0), shuffledCoords.get(i).get(1)));
+                mhos.add(new Mho(cx, cy));
             } else if (i <= 31){
             	// next 20 of the shuffled coords are fences
-                fences.add(new Fence(shuffledCoords.get(i).get(0), shuffledCoords.get(i).get(1)));
+                fences.add(new Fence(cx, cy));
             } else {
             	// 33rd coordinate is player
-                player = new Player(shuffledCoords.get(32).get(0), shuffledCoords.get(32).get(1));
+                player = new Player(cx, cy);
             }
+            if (i%8 == 0) System.out.println();
         }
 	}
 	
