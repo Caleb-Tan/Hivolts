@@ -9,7 +9,7 @@ public class Mho extends Element {
 	/* coordinates for the mho object and creating the image */
 	public Mho (int x, int y) {
 		try {
-            mho = ImageIO.read(new File("res/mho.png"));
+            mho = ImageIO.read(new File(ImagePath.mhoPath));
         } catch (IOException e){
             e.printStackTrace();
         }
@@ -20,7 +20,8 @@ public class Mho extends Element {
 	public void paintMho(Graphics g) {
 		g.drawImage(mho, x, y, null);
     }
-	
+
+	/* method causes mhos to move towards player */
 	public void moveTowards(int px, int py) {
 		int rightOf, above;
 		

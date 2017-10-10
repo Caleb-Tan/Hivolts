@@ -101,6 +101,7 @@ public class Game extends JPanel implements KeyListener {
 			mhos.get(i).moveTowards(player.x, player.y);
 		}
     }
+
     @Override
     public void keyTyped(KeyEvent e) {}
     @Override
