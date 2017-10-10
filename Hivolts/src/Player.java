@@ -64,5 +64,25 @@ public class Player extends Element {
                 return;
             }
         }
+<<<<<<< HEAD
     }
+=======
+        case KeyEvent.VK_Z: {
+            move(-1, 1);
+            break;
+        }
+        case KeyEvent.VK_C: {
+        		move(1, 1);
+        		break;
+        }
+        case KeyEvent.VK_S: {
+        		move(0, 0);
+        		break;
+        }
+        default: {
+        		return;
+        }
+    }
+    } 
+>>>>>>> f762273840a7ad73dbc11b975e90c2d64af726ac
 }
