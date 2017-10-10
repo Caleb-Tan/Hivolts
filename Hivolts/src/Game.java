@@ -30,15 +30,14 @@ public class Game extends JPanel implements KeyListener {
 
     @Override
     public Dimension getPreferredSize() {
-        return new Dimension(720, 720);
+        return new Dimension(1080, 720);
     }
 
     //Paints everything
     public void paint(Graphics g) {
         super.paint(g);
-        Color green = new Color(10, 130, 0);
-        g.setColor(green);
-        g.fillRect(0, 0, 720, 720); // fills background rectangle to be green
+        paintBackground(g);
+
 
         for (Fence fence : fences) fence.paintFence(g); // paints the fences
         for (Mho mho : mhos) mho.paintMho(g);           // paints the mhos
@@ -46,6 +45,21 @@ public class Game extends JPanel implements KeyListener {
         gameOver(g);       // calls game over method (see java doc)
     }
 
+    /* paints background and scoreboard */
+    private void paintBackground (Graphics g) {
+        Color SNOWWHITE = new Color(255, 250, 250);     // snow white color
+
+        g.setColor(SNOWWHITE);
+        g.fillRect(0, 0, 720, 720); // fills background rectangle to be snow white colored
+        g.setColor(Color.darkGray);
+        g.fillRect(720, 0, 360, 720);       // paints dark grey scoreboard on right
+
+        g.setColor(SNOWWHITE);
+        g.setFont(new Font("TimesRoman", Font.PLAIN, 40));  // paints titles on right scoreboard
+        g.drawString("Winter Hivolts", 770, 320);
+        g.setFont(new Font("TimesRoman", Font.PLAIN, 25));
+        g.drawString("By Caleb, Brion and Julius", 745,355);
+    }
 
     /* generateElements() does 2 things:
     *   1) generates outer perimeter fences
@@ -131,8 +145,9 @@ public class Game extends JPanel implements KeyListener {
             } catch (InterruptedException e) {
                 System.out.println(e);
             }
+            g.setColor(Color.darkGray);
             g.fillRect(0, 0, 720, 720);
-            g.setColor(Color.black);
+            g.setColor(Color.white);
             g.setFont(new Font("TimesRoman", Font.PLAIN, 40));
             g.drawString("Game Over", 270, 320);
 
