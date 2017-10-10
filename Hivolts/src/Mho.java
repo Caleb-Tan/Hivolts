@@ -34,18 +34,25 @@ public class Mho extends Element {
 		int farx = (Math.abs((px - x)) > Math.abs((py - y))) ? 1 : 0;
 		
 	    	if ((rightOf == 0)||(above == 0)) {
+	    		System.out.println("blindly moving: "+x/60+" "+y/60+" went "+rightOf+" "+above);
 			move(rightOf, above);
 		}
 		else {
 			if (Game.isEmpty(x-60*rightOf, y-60*above)) {
-				System.out.println("it's empty yay: " + rightOf + " " + above);
+				System.out.println("it's empty: "+x/60+" "+y/60+" went "+rightOf+" "+above);
 				move(rightOf, above);
 			}
 			else if (Game.isEmpty(x+60*rightOf*farx, y+60*above*(1-farx))) {
+				System.out.println("it's empty: "+x/60+" "+y/60+" went "+rightOf+" "+above);
 				move(rightOf*farx, above*(1-farx));
 			}
 			else if (Game.isEmpty(x+60*rightOf*(1-farx), y+60*above*farx)) {
+				System.out.println("it's empty: "+x/60+" "+y/60+" went "+rightOf+" "+above);
 				move(rightOf*(1-farx), above*farx);
+			}
+			else {
+				System.out.println("I will die: "+x/60+" "+y/60+" went "+rightOf+" "+above);
+				move(rightOf, above);
 			}
 		}
     }

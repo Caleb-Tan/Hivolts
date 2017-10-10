@@ -120,7 +120,11 @@ public class Game extends JPanel implements KeyListener {
     @Override
     public void keyReleased(KeyEvent e) {
     		int key = e.getKeyCode();
-    		if (key == KeyEvent.VK_R) startGame();
+    		if (key == KeyEvent.VK_R) {
+    			startGame();
+    			repaint();
+    			return;
+    		}
         player.move(key);
         moveMhos();
         repaint();
