@@ -30,22 +30,35 @@ public class Game extends JPanel implements KeyListener {
 
 	@Override
 	public Dimension getPreferredSize() {
-		return new Dimension(720, 720);
+		return new Dimension(1080, 720);
 	}
 
 	// Paints everything
 	public void paint(Graphics g) {
-		super.paint(g);
-		Color green = new Color(10, 130, 0);
-		g.setColor(green);
-		g.fillRect(0, 0, 720, 720); // fills background rectangle to be green
+		paintBackground(g);
 
 		for (Fence fence : fences)
 			fence.paintFence(g); // paints the fences
 		for (Mho mho : mhos)
 			mho.paintMho(g); // paints the mhos
 		player.paintPlayer(g); // paints the player
-		//checkgameOver(g); // calls game over method (see java doc)
+		gameOver(g); // calls game over method (see java doc)
+	}
+
+	/* paints background and scoreboard */
+	private void paintBackground(Graphics g) {
+		Color SNOWWHITE = new Color(255, 250, 250); // snow white color
+
+		g.setColor(SNOWWHITE);
+		g.fillRect(0, 0, 720, 720); // fills background rectangle to be snow white colored
+		g.setColor(Color.darkGray);
+		g.fillRect(720, 0, 360, 720); // paints dark grey scoreboard on right
+
+		g.setColor(SNOWWHITE);
+		g.setFont(new Font("TimesRoman", Font.PLAIN, 40)); // paints titles on right scoreboard
+		g.drawString("Winter Hivolts", 770, 320);
+		g.setFont(new Font("TimesRoman", Font.PLAIN, 25));
+		g.drawString("By Caleb, Brion and Julius", 745, 355);
 	}
 
 	/*
@@ -109,7 +122,6 @@ public class Game extends JPanel implements KeyListener {
 		}
 		for (Fence fence : fences) {
 			if (fence.x == x && fence.y == y) {
-				System.out.println("ayo whaddup");
 				empty = 1;
 			}
 		}
@@ -121,10 +133,7 @@ public class Game extends JPanel implements KeyListener {
 			mhos.get(i).moveTowards(player.x, player.y);
 		}
 		for (int i = 0; i < mhos.size(); i++) {
-			if (isEmpty(mhos.get(i).x, mhos.get(i).y) == 1) {
-				System.out.println("Death to mho at " + mhos.get(i).x/60 + " " + mhos.get(i).y/60);
-				mhos.remove(i);
-			}
+			if (isEmpty(mhos.get(i).x, mhos.get(i).y) == 1) mhos.remove(i);
 		}
 	}
 
@@ -132,8 +141,7 @@ public class Game extends JPanel implements KeyListener {
 	 * gameOver() method prints a game over screen if player has hit a mho/fence OR
 	 * if there are no mhos remaining
 	 */
-	private void checkgameOver(Graphics g) {
-
+	private void gameOver(Graphics g) {
 		// if player's coords are not empty, and are occupied by another element
 		if (isEmpty(player.x, player.y) > 0) {
 			try {
@@ -141,10 +149,13 @@ public class Game extends JPanel implements KeyListener {
 			} catch (InterruptedException e) {
 				System.out.println(e);
 			}
+			g.setColor(Color.darkGray);
 			g.fillRect(0, 0, 720, 720);
-			g.setColor(Color.black);
+			g.setColor(Color.white);
 			g.setFont(new Font("TimesRoman", Font.PLAIN, 40));
 			g.drawString("Game Over", 270, 320);
+			g.setFont(new Font("TimesRoman", Font.PLAIN, 20));
+			g.drawString("Press R to Restart", 290, 350);
 
 		}
 	}
@@ -159,6 +170,7 @@ public class Game extends JPanel implements KeyListener {
 
 	@Override
 	public void keyReleased(KeyEvent e) {
+
 		int key = e.getKeyCode();
 		if (key == KeyEvent.VK_R) {
 			startGame();
@@ -166,7 +178,7 @@ public class Game extends JPanel implements KeyListener {
 			return;
 		}
 		player.move(key); // calls move method inside of player for the key presses
-		if (key == KeyEvent.VK_M) moveMhos(); // moves the mhos
+		moveMhos(); // moves the mhos
 		repaint();
 	}
 
