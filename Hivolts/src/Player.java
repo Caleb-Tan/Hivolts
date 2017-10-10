@@ -64,5 +64,5 @@ public class Player extends Element{
         		return;
         }
     }
-    }
+    } 
 }
