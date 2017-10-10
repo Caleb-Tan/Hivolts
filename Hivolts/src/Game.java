@@ -42,6 +42,7 @@ public class Game extends JPanel implements KeyListener {
 		for (Mho mho : mhos)
 			mho.paintMho(g); // paints the mhos
 		player.paintPlayer(g); // paints the player
+		System.out.println("a move has been made");
 		gameOver(g); // calls game over method (see java doc)
 	}
 

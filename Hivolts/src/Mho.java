@@ -54,6 +54,6 @@ public class Mho extends Element {
 				move(rightOf, above);
 			}*/
 		}
-	    	System.out.println("Mho moved from "+xx+" "+xy+" to "+x/60+" "+y/60);
+	    	//System.out.println("Mho moved from "+xx+" "+xy+" to "+x/60+" "+y/60);
     }
 }
