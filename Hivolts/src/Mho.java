@@ -10,13 +10,14 @@ public class Mho extends Element {
     /* coordinates for the mho object and creating the image */
     public Mho(int x, int y) {
         try {
-            mho = ImageIO.read(new File(ImagePath.mhoPath));
+            mho = ImageIO.read(new File(ImagePath.mhoPaths));
         } catch (IOException e) {
             e.printStackTrace();
         }
         this.x = x;
         this.y = y;
     }
+
     public void paintMho(Graphics g) {
         g.drawImage(mho, x, y, null);
     }
@@ -34,21 +35,22 @@ public class Mho extends Element {
 		
 		int farx = (Math.abs((px - x)) > Math.abs((py - y))) ? 1 : 0;
 		
+		int xx = x/60, xy = y/60;
 	    	if ((rightOf == 0)||(above == 0)) {
-	    		System.out.println("blindly moving: "+x/60+" "+y/60+" went "+rightOf+" "+above);
+	    		//System.out.println("blindly moving: "+x/60+" "+y/60+" went "+rightOf+" "+above);
 			move(rightOf, above);
 		}
 		else {
-			if (Game.isEmpty(x-60*rightOf, y-60*above)) {
-				System.out.println("option 1: "+x/60+" "+y/60+" went "+rightOf+" "+above);
+			if (Game.isEmpty(x-60*rightOf, y-60*above) == 0) {
+				//System.out.println("option 1: "+x/60+" "+y/60+" went "+rightOf+" "+above);
 				move(rightOf, above);
 			}
-			else if (Game.isEmpty(x+60*rightOf*farx, y+60*above*(1-farx))) {
-				System.out.println("option 2: "+x/60+" "+y/60+" went "+rightOf+" "+above);
+			else if (Game.isEmpty(x+60*rightOf*farx, y+60*above*(1-farx)) == 0) {
+				//System.out.println("option 2: "+x/60+" "+y/60+" went "+rightOf+" "+above);
 				move(rightOf*farx, above*(1-farx));
 			}
-			else if (Game.isEmpty(x+60*rightOf*(1-farx), y+60*above*farx)) {
-				System.out.println("option 3: "+x/60+" "+y/60+" went "+rightOf+" "+above);
+			else if (Game.isEmpty(x+60*rightOf*(1-farx), y+60*above*farx) == 0) {
+				//System.out.println("option 3: "+x/60+" "+y/60+" went "+rightOf+" "+above);
 				move(rightOf*(1-farx), above*farx);
 			}
 			/*else {
@@ -56,5 +58,6 @@ public class Mho extends Element {
 				move(rightOf, above);
 			}*/
 		}
+	    	System.out.println("Mho moved from "+xx+" "+xy+" to "+x/60+" "+y/60);
     }
 }
