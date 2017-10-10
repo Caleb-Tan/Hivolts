@@ -39,21 +39,21 @@ public class Mho extends Element {
 		}
 		else {
 			if (Game.isEmpty(x-60*rightOf, y-60*above)) {
-				System.out.println("it's empty: "+x/60+" "+y/60+" went "+rightOf+" "+above);
+				System.out.println("option 1: "+x/60+" "+y/60+" went "+rightOf+" "+above);
 				move(rightOf, above);
 			}
 			else if (Game.isEmpty(x+60*rightOf*farx, y+60*above*(1-farx))) {
-				System.out.println("it's empty: "+x/60+" "+y/60+" went "+rightOf+" "+above);
+				System.out.println("option 2: "+x/60+" "+y/60+" went "+rightOf+" "+above);
 				move(rightOf*farx, above*(1-farx));
 			}
 			else if (Game.isEmpty(x+60*rightOf*(1-farx), y+60*above*farx)) {
-				System.out.println("it's empty: "+x/60+" "+y/60+" went "+rightOf+" "+above);
+				System.out.println("option 3: "+x/60+" "+y/60+" went "+rightOf+" "+above);
 				move(rightOf*(1-farx), above*farx);
 			}
-			else {
+			/*else {
 				System.out.println("I will die: "+x/60+" "+y/60+" went "+rightOf+" "+above);
 				move(rightOf, above);
-			}
+			}*/
 		}
     }
 }
