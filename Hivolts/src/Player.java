@@ -3,11 +3,13 @@ import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Random;
+
 import javax.imageio.ImageIO;
 
 public class Player extends Element {
 	private BufferedImage player;
-
 	Player(int x, int y) {
 		try {
 			player = ImageIO.read(new File(ImagePath.playerPaths));
@@ -59,9 +61,6 @@ public class Player extends Element {
 			case KeyEvent.VK_S: {
 				move(0, 0);
 				break;
-			}
-			case KeyEvent.VK_J: {
-				
 			}
 			default: {
 				return;

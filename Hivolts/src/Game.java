@@ -13,6 +13,8 @@ public class Game extends JPanel implements KeyListener {
 	private Player player; // declares player object to use later
 	static ArrayList<Fence> fences = new ArrayList<>(); // contains all the fences
 	static ArrayList<Mho> mhos = new ArrayList<>(); // contains all the mhos
+	static ArrayList<ArrayList<Integer>> jumpArea;
+	Random rand = new Random();
 
 	Game() {
 		addKeyListener(this);
@@ -42,7 +44,6 @@ public class Game extends JPanel implements KeyListener {
 		for (Mho mho : mhos)
 			mho.paintMho(g); // paints the mhos
 		player.paintPlayer(g); // paints the player
-		System.out.println("a move has been made");
 		gameOver(g); // calls game over method (see java doc)
 	}
 
@@ -92,25 +93,24 @@ public class Game extends JPanel implements KeyListener {
 				shuffledCoords.add(x);
 			}
 		}
+		jumpArea = shuffledCoords;
 		int cx, cy;
 		// shuffles the collection with each cell coord in it
 		Collections.shuffle(shuffledCoords);
 		for (int i = 0; i <= 32; i++) {
 			cx = shuffledCoords.get(i).get(0);
 			cy = shuffledCoords.get(i).get(1);
-			System.out.print(cx / 60 + " " + cy / 60 + "\t");
 			if (i <= 11) {
 				// first 12 of the shuffled coords are mhos
 				mhos.add(new Mho(cx, cy));
 			} else if (i <= 31) {
 				// next 20 of the shuffled coords are fences
 				fences.add(new Fence(cx, cy));
+				jumpArea.remove(i);
 			} else {
 				// 33rd coordinate is player
 				player = new Player(cx, cy);
 			}
-			if (i % 8 == 0)
-				System.out.println();
 		}
 	}
 
@@ -134,7 +134,8 @@ public class Game extends JPanel implements KeyListener {
 			mhos.get(i).moveTowards(player.x, player.y);
 		}
 		for (int i = 0; i < mhos.size(); i++) {
-			if (isEmpty(mhos.get(i).x, mhos.get(i).y) == 1) mhos.remove(i);
+			if (isEmpty(mhos.get(i).x, mhos.get(i).y) == 1)
+				mhos.remove(i);
 		}
 	}
 
@@ -157,7 +158,20 @@ public class Game extends JPanel implements KeyListener {
 			g.drawString("Game Over", 270, 320);
 			g.setFont(new Font("TimesRoman", Font.PLAIN, 20));
 			g.drawString("Press R to Restart", 290, 350);
-
+		}
+		else if (mhos.size() == 0) {
+			try {
+				Thread.sleep(500); // sleeps 50 milliseconds
+			} catch (InterruptedException e) {
+				System.out.println(e);
+			}
+			g.setColor(Color.darkGray);
+			g.fillRect(0, 0, 720, 720);
+			g.setColor(Color.white);
+			g.setFont(new Font("TimesRoman", Font.PLAIN, 40));
+			g.drawString("Congrat! You Won!", 260, 320);
+			g.setFont(new Font("TimesRoman", Font.PLAIN, 20));
+			g.drawString("Press R to Restart", 290, 350);
 		}
 	}
 
@@ -175,6 +189,14 @@ public class Game extends JPanel implements KeyListener {
 		int key = e.getKeyCode();
 		if (key == KeyEvent.VK_R) {
 			startGame();
+			repaint();
+			return;
+		}
+		else if (key == KeyEvent.VK_J) {
+			ArrayList<Integer> choice = new ArrayList<>();
+			choice = Game.jumpArea.get(rand.nextInt(Game.jumpArea.size()));
+			player.x = choice.get(0);
+			player.y = choice.get(1);
 			repaint();
 			return;
 		}
