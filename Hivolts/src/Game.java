@@ -32,7 +32,7 @@ public class Game extends JPanel implements KeyListener {
 
 	@Override
 	public Dimension getPreferredSize() {
-		return new Dimension(1080, 720);
+		return new Dimension(720, 830);
 	}
 
 	// Paints everything
@@ -54,13 +54,14 @@ public class Game extends JPanel implements KeyListener {
 		g.setColor(SNOWWHITE);
 		g.fillRect(0, 0, 720, 720); // fills background rectangle to be snow white colored
 		g.setColor(Color.darkGray);
-		g.fillRect(720, 0, 360, 720); // paints dark grey scoreboard on right
+		g.fillRect(0, 720, 720, 110); // paints dark grey scoreboard on right
 
 		g.setColor(SNOWWHITE);
-		g.setFont(new Font("TimesRoman", Font.PLAIN, 40)); // paints titles on right scoreboard
-		g.drawString("Winter Hivolts", 770, 320);
-		g.setFont(new Font("TimesRoman", Font.PLAIN, 25));
-		g.drawString("By Caleb, Brion and Julius", 745, 355);
+		g.setFont(new Font("TimesRoman", Font.PLAIN, 27)); // paints titles on right scoreboard
+		g.drawString("Winter Hivolts", 50, 770);
+		g.setFont(new Font("TimesRoman", Font.PLAIN, 18));
+		g.drawString("By Caleb, Brion, and Julius", 30, 800);
+		g.drawString("Mhos Remaining: " + mhos.size(), 500, 780);
 	}
 
 	/*
@@ -161,7 +162,7 @@ public class Game extends JPanel implements KeyListener {
         g.fillRect(0, 0, 720, 720);
         g.setColor(Color.white);
         g.setFont(new Font("TimesRoman", Font.PLAIN, 40));
-        g.drawString(message, offsetx, 320);     // draws Game Over or Congrats you won
+        g.drawString(message, offsetx, 320);     // draws Game Over or Congrats you won with the offset that corresponds to that text
         g.setFont(new Font("TimesRoman", Font.PLAIN, 20));
         g.drawString("Press R to Restart", 290, 360);
     }
