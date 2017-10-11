@@ -192,9 +192,12 @@ public class Game extends JPanel implements KeyListener {
 			repaint();
 			return;
 		}
-		player.move(key); // calls move method inside of player for the key presses
+		player.movePlayer(key); // calls move method inside of player for the key presses
 		moveMhos(); // moves the mhos
 		repaint();
 	}
 
+	public void rp(){
+	    repaint();
+    }
 }

@@ -24,7 +24,7 @@ public class Player extends Element {
 		g.drawImage(player, x, y, null);
 	}
 
-	protected void move(int key) {
+	protected void movePlayer(int key) {
 		switch (key) {
 			case KeyEvent.VK_W: {
 				move(0, -1);
