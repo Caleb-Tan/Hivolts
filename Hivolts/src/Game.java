@@ -145,35 +145,26 @@ public class Game extends JPanel implements KeyListener {
 	 */
 	private void gameOver(Graphics g) {
 		// if player's coords are not empty, and are occupied by another element
-		if (isEmpty(player.x, player.y) > 0) {
-			try {
-				Thread.sleep(500); // sleeps 50 milliseconds
-			} catch (InterruptedException e) {
-				System.out.println(e);
-			}
-			g.setColor(Color.darkGray);
-			g.fillRect(0, 0, 720, 720);
-			g.setColor(Color.white);
-			g.setFont(new Font("TimesRoman", Font.PLAIN, 40));
-			g.drawString("Game Over", 270, 320);
-			g.setFont(new Font("TimesRoman", Font.PLAIN, 20));
-			g.drawString("Press R to Restart", 290, 350);
-		}
-		else if (mhos.size() == 0) {
-			try {
-				Thread.sleep(500); // sleeps 50 milliseconds
-			} catch (InterruptedException e) {
-				System.out.println(e);
-			}
-			g.setColor(Color.darkGray);
-			g.fillRect(0, 0, 720, 720);
-			g.setColor(Color.white);
-			g.setFont(new Font("TimesRoman", Font.PLAIN, 40));
-			g.drawString("Congrat! You Won!", 260, 320);
-			g.setFont(new Font("TimesRoman", Font.PLAIN, 20));
-			g.drawString("Press R to Restart", 290, 350);
-		}
+		if (isEmpty(player.x, player.y) > 0) paintEndScreen(g, "Game Over! :(", 250);   // if player hits another mhoe or fence, paint the end screen saying game over
+
+		else if (mhos.size() == 0) paintEndScreen(g, "Congrat! You Won!", 200);     // if there are no more mhos, paint congrats you won
 	}
+
+	/* method to paint the end screen */
+	private void paintEndScreen(Graphics g, String message, int offsetx){
+        try {
+            Thread.sleep(500); // sleeps 50 milliseconds
+        } catch (InterruptedException e) {
+            System.out.println(e);
+        }
+        g.setColor(Color.darkGray);
+        g.fillRect(0, 0, 720, 720);
+        g.setColor(Color.white);
+        g.setFont(new Font("TimesRoman", Font.PLAIN, 40));
+        g.drawString(message, offsetx, 320);     // draws Game Over or Congrats you won
+        g.setFont(new Font("TimesRoman", Font.PLAIN, 20));
+        g.drawString("Press R to Restart", 290, 360);
+    }
 
 	@Override
 	public void keyTyped(KeyEvent e) {
@@ -193,7 +184,7 @@ public class Game extends JPanel implements KeyListener {
 			return;
 		}
 		else if (key == KeyEvent.VK_J) {
-			ArrayList<Integer> choice = new ArrayList<>();
+			ArrayList<Integer> choice;
 			choice = Game.jumpArea.get(rand.nextInt(Game.jumpArea.size()));
 			player.x = choice.get(0);
 			player.y = choice.get(1);
