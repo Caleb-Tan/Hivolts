@@ -47,7 +47,14 @@ public class Mho extends Element {
 				move(rightOf * farx, above * (1 - farx));
 			} else if (Game.isEmpty(x + 60 * rightOf * (1 - farx), y + 60 * above * farx) == 0) {
 				move(rightOf * (1 - farx), above * farx);
+			} if (Game.isEmpty(x - 60 * rightOf, y - 60 * above) == 1) {
+				move(rightOf, above);
+			} else if (Game.isEmpty(x + 60 * rightOf * farx, y + 60 * above * (1 - farx)) == 1) {
+				move(rightOf * farx, above * (1 - farx));
+			} else if (Game.isEmpty(x + 60 * rightOf * (1 - farx), y + 60 * above * farx) == 1) {
+				move(rightOf * (1 - farx), above * farx);
 			}
+			
 		}
 		frame++;
 		if (frame < 10) moving = false;

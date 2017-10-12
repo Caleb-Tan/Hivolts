@@ -155,7 +155,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 	private void gameOver(Graphics g) {
 		// if player's coords are not empty, and are occupied by another element
 		if (isEmpty(player.x, player.y) > 0) {
-			// if player hits another mhoe or fence, paint the end screen saying game over
+			// if player hits anotha er mhoe or fence, paint the end screen saying game over
 			paintEndScreen(g, "Game Over! :(", 250);
 
 		} else if (mhos.size() == 0) {
@@ -221,7 +221,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		
 	}
 
-	int counter = 0;
+	int counter = 1;
 
 	/*
 	 * implemented method is called when the timer starts. every 1 ms, the method
@@ -237,16 +237,19 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		if (counter <= 10) {
 			player.movePlayer(key); // calls move method inside of player
 			repaint();
-		} else if (counter <= 20) { // next 10 times moves mhos
+		} else if (counter <= 19) { // next 10 times moves mhos
 			System.out.print("\n");
 			moveMhos();
 			repaint();
 		} else {
 			t.stop(); // stops timer once done and resets counter to 0
-			counter = 0;
+			counter = 1;
 			resetCoord();
 			for (int i = 0; i < mhos.size(); i++) {
-				if (isEmpty(mhos.get(i).x, mhos.get(i).y) == 1) mhos.remove(i);
+				if (isEmpty(mhos.get(i).x, mhos.get(i).y) == 1) {
+					System.out.println("hi");
+					mhos.remove(i);
+				}
 			}
 			repaint();
 			// for debugging purposes
