@@ -10,6 +10,7 @@ public class Mho extends Element {
 	int above, rightOf, farx;
 	int frame;
 
+<<<<<<< HEAD
 	/* coordinates for the mho object and creating the image */
 	public Mho(int x, int y) {
 		try {
@@ -20,6 +21,18 @@ public class Mho extends Element {
 		this.x = x;
 		this.y = y;
 	}
+=======
+    /* coordinates for the mho object and creating the image */
+    public Mho(int x, int y) {
+        try {
+            mho = ImageIO.read(new File(ImagePath.mhoPath));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        this.x = x;
+        this.y = y;
+    }
+>>>>>>> ad319bd0c6ca2a120d09b30798291a37f5f8a8dc
 
 	public void paintMho(Graphics g) {
 		g.drawImage(mho, x, y, null);
