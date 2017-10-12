@@ -47,7 +47,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		for (Mho mho : mhos)
 			mho.paintMho(g); // paints the mhos
 
-		//gameOver(g); // calls game over method (see java doc)
+		gameOver(g); // calls game over method (see java doc)
 	}
 
 	/* paints background and scoreboard */
@@ -248,6 +248,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 			for (int i = 0; i < mhos.size(); i++) {
 				if (isEmpty(mhos.get(i).x, mhos.get(i).y) == 1) mhos.remove(i);
 			}
+			repaint();
 			// for debugging purposes
 			System.out.println("Player coords: " + player.x + " " + player.y);
 			for (Mho mho : mhos) {

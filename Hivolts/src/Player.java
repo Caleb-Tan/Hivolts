@@ -12,7 +12,7 @@ public class Player extends Element {
 	private BufferedImage player;
 	Player(int x, int y) {
 		try {
-			player = ImageIO.read(new File(ImagePath.playerPath));
+			player = ImageIO.read(new File(ImagePath.playerPaths));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
