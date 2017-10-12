@@ -18,7 +18,7 @@ public class Element {
 	
 	int x, y;
 	protected void move(int xrel, int yrel) {
-		x += 60 * xrel;
-		y += 60 * yrel;
+            x += (6 * xrel);
+            y += (6 * yrel);
 	}
 }
