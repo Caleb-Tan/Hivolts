@@ -10,7 +10,7 @@ public class Mho extends Element {
     /* coordinates for the mho object and creating the image */
     public Mho(int x, int y) {
         try {
-            mho = ImageIO.read(new File(ImagePath.mhoPaths));
+            mho = ImageIO.read(new File(ImagePath.mhoPath));
         } catch (IOException e) {
             e.printStackTrace();
         }

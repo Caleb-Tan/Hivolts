@@ -155,7 +155,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 			t.stop(); // stop the timer
 		} else if (mhos.size() == 0) {
 			// if there are no more mhos, paint congrats you won
-			paintEndScreen(g, "Congrat! You Won!", 200);
+			paintEndScreen(g, "Congrats! You Won!", 200);
 			t.stop(); // stop the timer
 		}
 	}
