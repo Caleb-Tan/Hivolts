@@ -201,8 +201,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
             player.y = choice.get(1);
             repaint(); // must remove/edit to prevent J from restarting the game
             return;
-        } else
-            player.movePlayer(key);
+        }
 
         int[] keys = {
                 KeyEvent.VK_Q, KeyEvent.VK_W, KeyEvent.VK_E,
@@ -218,7 +217,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
     }
 
-    int counter = 1;
+    int counter = 0;
 
     /*
      * implemented method is called when the timer starts. every 1 ms, the method
@@ -234,13 +233,13 @@ public class Game extends JPanel implements KeyListener, ActionListener {
         if (counter <= 10) {
             player.movePlayer(key); // calls move method inside of player
             repaint();
-        } else if (counter <= 19) { // next 10 times moves mhos
+        } else if (counter <= 20) { // next 10 times moves mhos
             System.out.print("\n");
             moveMhos();
             repaint();
         } else {
             t.stop(); // stops timer once done and resets counter to 0
-            counter = 1;
+            counter = 0;
             resetCoord();
             for (int i = 0; i < mhos.size(); i++) {
                 if (isEmpty(mhos.get(i).x, mhos.get(i).y) == 1) {

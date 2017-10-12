@@ -15,7 +15,14 @@ The game involves several elements: </br>
 
 ## Errors
 There were several errors that we encountered. The first major error that happened was that the images were not showing up on some people’s computers. Even though, the paths were correct and relative to the file that it was being referenced to, an IO File not found exception kept getting thrown when trying to run the program. In the end, we made the ImagePath class that stored the relative and absolute path sets as string variables, so that we could easily switch between the two paths. </br></br>
-Another main error we encountered was that the mhos would sometimes be able to occupy the same spot as a fence, and two mhos could be able to occupy the same cell. When debugging this issue, we realized that the issue was that the mho would be 1 or 2 digits off of where it is supposed to be. As of right now, we have not been able to determine why it would be 1 or 2 digits off, so Brion was forced code a quick fix that would round the mho coordinates to the nearest cell's digits. As crude as this fix was, it served its purpose  
+Another main error we encountered was that the mhos would sometimes be able to occupy the same spot as a fence, and two mhos could be able to occupy the same cell. When debugging this issue, we realized that the issue was that the mho would be 1 or 2 digits off of where it is supposed to be. As of right now, we have not been able to determine why it would be 1 or 2 digits off, so Brion was forced to  implement a quick fix that would round the mho coordinates to the nearest cell's digits. As crude as this fix was, it served its purpose.  
+
+## Specifications
+The project has multiple methods, classes, and objects. Each part is listed below: </br></br>
+**Main.java** - The class contains the main method which initializes the game panel, the jframe to contain the panel, and it packs and adds the panel to the jframe.</br> 
+**Game.java** - Game is the jpanel class that displays the game, and it also contains all the game logic. 
+- Timer
+
 
 
 
