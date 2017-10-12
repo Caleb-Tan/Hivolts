@@ -17,7 +17,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 	static ArrayList<ArrayList<Integer>> jumpArea;
 	int key;
 	Random rand = new Random();
-
+	boolean active;
 	Game() {
 		addKeyListener(this);
 		setFocusable(true);
@@ -26,10 +26,12 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 	}
 
 	public void startGame() {
+		active = true;
 		System.out.println("Game Restarted");
 		fences.clear();
 		mhos.clear();
 		generateElements();
+		repaint();
 	}
 
 	@Override
@@ -157,6 +159,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		if (isEmpty(player.x, player.y) > 0) {
 			// if player hits anotha er mhoe or fence, paint the end screen saying game over
 			paintEndScreen(g, "Game Over! :(", 250);
+			t.stop();
 
 		} else if (mhos.size() == 0) {
 			// if there are no more mhos, paint congrats you won
@@ -192,33 +195,35 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
 	@Override
 	public void keyReleased(KeyEvent e) {
+		
 		int key = e.getKeyCode();
 		if (key == KeyEvent.VK_R) {
 			startGame();
-			repaint();
 			return;
-		} else if (key == KeyEvent.VK_J) {
-			ArrayList<Integer> choice;
-			choice = Game.jumpArea.get(rand.nextInt(Game.jumpArea.size()));
-			player.x = choice.get(0);
-			player.y = choice.get(1);
-			repaint(); // must remove/edit to prevent J from restarting the game
-			return;
-		} else
-			player.movePlayer(key);
+		} 
+		else if (active) {
+			if (key == KeyEvent.VK_J) {
+				ArrayList<Integer> choice;
+				choice = Game.jumpArea.get(rand.nextInt(Game.jumpArea.size()));
+				player.x = choice.get(0);
+				player.y = choice.get(1);
+				repaint(); // must remove/edit to prevent J from restarting the game
+				return;
+			} else
+				player.movePlayer(key);
 
-		int[] keys = { 
-				KeyEvent.VK_Q, KeyEvent.VK_W, KeyEvent.VK_E, 
-				KeyEvent.VK_A, KeyEvent.VK_S, KeyEvent.VK_D,
-				KeyEvent.VK_Z, KeyEvent.VK_X, KeyEvent.VK_C };
-		for (int i = 0; i < keys.length; i++) {
-			if (keys[i] == key) {
-				this.key = key;
-				t.start();
-				break;
+			int[] keys = { 
+					KeyEvent.VK_Q, KeyEvent.VK_W, KeyEvent.VK_E, 
+					KeyEvent.VK_A, KeyEvent.VK_S, KeyEvent.VK_D,
+					KeyEvent.VK_Z, KeyEvent.VK_X, KeyEvent.VK_C };
+			for (int i = 0; i < keys.length; i++) {
+				if (keys[i] == key) {
+					this.key = key;
+					t.start();
+					break;
+				}
 			}
-		}
-		
+		}	
 	}
 
 	int counter = 1;
@@ -238,7 +243,6 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 			player.movePlayer(key); // calls move method inside of player
 			repaint();
 		} else if (counter <= 19) { // next 10 times moves mhos
-			System.out.print("\n");
 			moveMhos();
 			repaint();
 		} else {
