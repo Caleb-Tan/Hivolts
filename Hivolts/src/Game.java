@@ -11,11 +11,11 @@ import javax.swing.*;
 
 public class Game extends JPanel implements KeyListener, ActionListener {
 	Timer t = new Timer(1, this);
-	int key; // key to be used by action listener and passed into the moveplayer function
 	private Player player; // declares player object to use later
 	static ArrayList<Fence> fences = new ArrayList<>(); // contains all the fences
 	static ArrayList<Mho> mhos = new ArrayList<>(); // contains all the mhos
 	static ArrayList<ArrayList<Integer>> jumpArea;
+	int key;
 	Random rand = new Random();
 
 	Game() {
@@ -43,10 +43,11 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
 		for (Fence fence : fences)
 			fence.paintFence(g); // paints the fences
+		player.paintPlayer(g); // paints the player
 		for (Mho mho : mhos)
 			mho.paintMho(g); // paints the mhos
-		player.paintPlayer(g); // paints the player
-		gameOver(g); // calls game over method (see java doc)
+
+		//gameOver(g); // calls game over method (see java doc)
 	}
 
 	/* paints background and scoreboard */
@@ -136,11 +137,15 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		for (int i = 0; i < mhos.size(); i++) {
 			mhos.get(i).moveTowards(player.x, player.y);
 		}
-		for (int i = 0; i < mhos.size(); i++) {
-			if (isEmpty(mhos.get(i).x, mhos.get(i).y) == 1)
-				//System.out.println("Mho should die at " + mhos.get(i).x + " " + mhos.get(i).y);
-				mhos.remove(i);
+	}
+	
+	private void resetCoord() {
+		for (int i=0; i<mhos.size(); i++) {
+			mhos.get(i).x = (mhos.get(i).x+12)/60*60;
+			mhos.get(i).y = (mhos.get(i).y+12)/60*60;
 		}
+		player.x = (player.x+12)/60*60;
+		player.y = (player.y+12)/60*60;
 	}
 
 	/*
@@ -152,11 +157,10 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		if (isEmpty(player.x, player.y) > 0) {
 			// if player hits another mhoe or fence, paint the end screen saying game over
 			paintEndScreen(g, "Game Over! :(", 250);
-			t.stop(); // stop the timer
+
 		} else if (mhos.size() == 0) {
 			// if there are no more mhos, paint congrats you won
 			paintEndScreen(g, "Congrat! You Won!", 200);
-			t.stop(); // stop the timer
 		}
 	}
 
@@ -197,11 +201,14 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 			choice = Game.jumpArea.get(rand.nextInt(Game.jumpArea.size()));
 			player.x = choice.get(0);
 			player.y = choice.get(1);
-			repaint(); //must remove/edit to prevent J from restarting the game
+			repaint(); // must remove/edit to prevent J from restarting the game
 			return;
-		}
+		} else
+			player.movePlayer(key);
 
-		int[] keys = { KeyEvent.VK_Q, KeyEvent.VK_W, KeyEvent.VK_E, KeyEvent.VK_A, KeyEvent.VK_S, KeyEvent.VK_D,
+		int[] keys = { 
+				KeyEvent.VK_Q, KeyEvent.VK_W, KeyEvent.VK_E, 
+				KeyEvent.VK_A, KeyEvent.VK_S, KeyEvent.VK_D,
 				KeyEvent.VK_Z, KeyEvent.VK_X, KeyEvent.VK_C };
 		for (int i = 0; i < keys.length; i++) {
 			if (keys[i] == key) {
@@ -210,6 +217,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 				break;
 			}
 		}
+		
 	}
 
 	int counter = 0;
@@ -222,26 +230,31 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		counter++; // increments counter
-
+		// increments counter
+		counter++;
 		// first 10 times moves player
 		if (counter <= 10) {
-			player.movePlayer(key); // calls move method inside of player for the key presses. in move method, it is
-									// incremented by
+			player.movePlayer(key); // calls move method inside of player
 			repaint();
-		} else if (counter > 10 && counter <= 20) { // next 10 times moves mhos
+		} else if (counter <= 20) { // next 10 times moves mhos
+			System.out.print("\n");
 			moveMhos();
 			repaint();
 		} else {
 			t.stop(); // stops timer once done and resets counter to 0
 			counter = 0;
-
+			resetCoord();
+			for (int i = 0; i < mhos.size(); i++) {
+				if (isEmpty(mhos.get(i).x, mhos.get(i).y) == 1) mhos.remove(i);
+			}
 			// for debugging purposes
-			System.out.println("Player coords: " + player.x + " " + player.y); // show player coords after moving
+			System.out.println("Player coords: " + player.x + " " + player.y);
 			for (Mho mho : mhos) {
-				System.out.println("MHO: " + mho.x + " " + mho.y); // show mho coords after moving
+				System.out.println("MHO: " + mho.x + " " + mho.y);
 			}
 			System.out.println("--------");
+			
+			
 		}
 	}
 }
