@@ -25,7 +25,7 @@ public class Mho extends Element {
 		g.drawImage(mho, x, y, null);
 	}
 
-	/* method causes mhos to move towards player */
+	/* method causes mhos to move towards player based on player's position t*/
 	public void moveTowards(int px, int py) {
 		if (moving == false) {
 			if (x < px) rightOf = 1;
