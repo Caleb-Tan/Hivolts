@@ -30,7 +30,7 @@ The project has multiple methods, classes, and objects. Each part is listed belo
 - gameOver() - In this method, there is a call to isEmpty to check if the player's coordinates are conflicting with a mho or fence's coordinates. If so, then the paintEndScreen() method is called to paint the end screen saying game over. However, if all mhos have died, then the paintEndScreen() method is still called but with the parameters to paint Congratulations. Finally, the timer is stopped. If nothing has changed, then the program proceeds normally. It is important to note that this method is called whenever the game is repainted, so there is a constant update.  
 - paintEndScreen() - paints the gameOverScreen based on parameters given to it by the call to it in the gameOver() method. 
 - keyReleased() - It is the method used that comes from the KeyListener implementation. When a key is pressed, this method checks to see if it's a move command, or a key to restart, and then either repaints the whole screen, or makes the key code public for actionPerformed() to use. If it is a move command, the method will also start the timer. 
-- actionPerformed() - 
+- actionPerformed() - This important method is invoked whenever the timer is started, and it is called every 1 millisecond, as specified in the timer object declaration. The purpose of this method is to 
 
 
 
