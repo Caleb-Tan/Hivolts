@@ -10,7 +10,7 @@ import java.util.Random;
 import javax.swing.*;
 
 public class Game extends JPanel implements KeyListener, ActionListener {
-    Timer t = new Timer(1, this);
+    Timer t = new Timer(1, this);   // create new timer that calls the action listener every 1 millisecond when started
     private Player player; // declares player object to use later
     static ArrayList<Fence> fences = new ArrayList<>(); // contains all the fences
     static ArrayList<Mho> mhos = new ArrayList<>(); // contains all the mhos
@@ -120,7 +120,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
     /* isEmpty() method is used to check if a set of coords are the
     * same as the mhos or fences. If they are, then it will return
     * a digit representing that */
-    private static int isEmpty(int x, int y) {
+    protected static int isEmpty(int x, int y) {
         int empty = 0;
         for (Mho mho : mhos) {  // checks if any mhos are the same as the given coord
             if (mho.x == x && mho.y == y) {
@@ -152,8 +152,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
         player.y = (player.y + 12) / 60 * 60;
     }
 
-    /*
-     * gameOver() method prints a game over screen if player has hit a mho/fence OR
+    /* gameOver() method prints a game over screen if player has hit a mho/fence OR
      * if there are no mhos remaining
      */
     private void gameOver(Graphics g) {
@@ -161,6 +160,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
         if (isEmpty(player.x, player.y) > 0) {
             // if player hits another mho or fence, paint the end screen saying game over
             paintEndScreen(g, "Game Over! :(", 250);
+            t.stop();
         } else if (mhos.size() == 0) {
             // if there are no more mhos, paint congrats you won
             paintEndScreen(g, "Congrats! You Won!", 200);
@@ -168,7 +168,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
         }
     }
 
-    /* method to paint the end screen */
+    /* method paints the end screen */
     private void paintEndScreen(Graphics g, String message, int offsetx) {
         try {
             Thread.sleep(400); // sleeps 40 milliseconds
