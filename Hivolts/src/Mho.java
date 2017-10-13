@@ -34,7 +34,8 @@ public class Mho extends Element {
 			if (y < py) above = 1;
 			else if (y == py) above = 0;
 			else above = -1;
-			farx = (Math.abs((px - x)) > Math.abs((py - y))) ? 1 : 0;
+			if (Math.abs((px - x)) > Math.abs((py - y))) farx = 1;
+			else farx = 0;
 			moving = true;
 			frame = 0;
 		}
@@ -53,8 +54,7 @@ public class Mho extends Element {
 				move(rightOf * farx, above * (1 - farx));
 			} else if (Game.isEmpty(x + 60 * rightOf * (1 - farx), y + 60 * above * farx) == 1) {
 				move(rightOf * (1 - farx), above * farx);
-			}
-			
+			}	
 		}
 		frame++;
 		if (frame < 10) moving = false;
