@@ -151,6 +151,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		return empty;
 	}
 
+	/* moves the mhos */
 	private void moveMhos() {
 		for (int i = 0; i < mhos.size(); i++) {
 			mhos.get(i).moveTowards(player.x, player.y);
@@ -202,7 +203,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
     @Override
     public void keyTyped(KeyEvent e) {
-        
+
     }
 
     @Override
@@ -234,15 +235,15 @@ public class Game extends JPanel implements KeyListener, ActionListener {
         };   // list of possible keys stored in an array that the user can press to move
         for (int i = 0; i < possibleKeys.length; i++) {
             if (possibleKeys[i] == key) {   // if one of the keys pressed is a possible k
-                this.key = key;     // assigns the global variable key to match the key pressed (global variable )
-                t.start();      // begins the timer
+                this.key = key;     // assigns the global variable key to match the key pressed (global variable)
+                if (state == 1) t.start();      // begins the timer
                 break;
             }
         }
 
     }
 
-	int counter = 0;
+	int counter = 0;   // counter to ensure that actionPerformed is not called an infinite amount of times when timer is begun
 
 	/*
 	 * implemented method is called when the timer starts. every 1 ms, the method
