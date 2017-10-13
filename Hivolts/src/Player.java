@@ -3,8 +3,6 @@ import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Random;
 
 import javax.imageio.ImageIO;
 
@@ -59,7 +57,7 @@ public class Player extends Element {
 				break;
 			}
 			case KeyEvent.VK_S: {
-				move(0, 0); // stay in placec
+				move(0, 0); // stay in place
 				break;
 			}
 			default: {

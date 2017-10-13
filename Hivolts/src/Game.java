@@ -10,7 +10,7 @@ import java.util.Random;
 import javax.swing.*;
 
 public class Game extends JPanel implements KeyListener, ActionListener {
-
+	boolean invincible = true;
 	Timer t = new Timer(1, this);
 	private Player player; // declares player object to use later
 	static ArrayList<Fence> fences = new ArrayList<>(); // contains all the fences
@@ -223,14 +223,14 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 	public static int isEmpty(int x, int y) {
 		int empty = 0;
 		for (Mho mho : mhos) {
-			//if ((mho.x + 12) / 60 * 60 == x && (mho.y + 12) / 60 * 60 == y) {
-			if (mho.x == x && mho.y == y) {
+			if ((mho.x + 12) / 60 * 60 == x && (mho.y + 12) / 60 * 60 == y) {
+			//if (mho.x == x && mho.y == y) {
 				empty = 2; // the code 2 means there is a mho at the location
 			}
 		}
 		for (Fence fence : fences) {
-			//if ((fence.x + 12) / 60 * 60 == x && (fence.y + 12) / 60 * 60 == y) {
-			if (fence.x == x && fence.y == y) {
+			if ((fence.x + 12) / 60 * 60 == x && (fence.y + 12) / 60 * 60 == y) {
+			//if (fence.x == x && fence.y == y) {
 				empty += 1; // the code 1 means there is a fence at the location
 							// if both are there then the code is 3
 			}
@@ -263,14 +263,12 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 			counter = 0; // resets counter
 			roundCoords(); // rounds the coordinates to the correct places
 			for (int i = mhos.size()-1; i >= 0; i--) {
-				if (isEmpty(mhos.get(i).x, mhos.get(i).y) == 1) {
-					System.out.print(i + " ");
+				if (isEmpty(mhos.get(i).x, mhos.get(i).y) % 2 == 1) {
 					mhos.remove(i); // loops through mhos to check if any mhos hit a fence
 				}
 			}
-			System.out.println();
 			repaint(); // repaints everything again
-			gameOver(); // calls game over method (see java doc)
+			if (!invincible) gameOver(); // calls game over method (see java doc)
 		}
 	}
 }
