@@ -151,12 +151,11 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		return empty;
 	}
 
-	private void moveMhos() {
-		for (int i = 0; i < mhos.size(); i++) {
-			mhos.get(i).moveTowards(player.x, player.y);
-		}
-	}
-
+	/*
+	 * Fixes rounding errors caused by the smooth movement.
+	 * Adds 12 to bring all errors to above the actual value (bc max is +6)
+	 * and uses division and multiplication to round it down.
+	 */
 	private void resetCoord() {
 		for (int i = 0; i < mhos.size(); i++) {
 			mhos.get(i).x = (mhos.get(i).x + 12) / 60 * 60;
@@ -204,12 +203,10 @@ public class Game extends JPanel implements KeyListener, ActionListener {
     public void keyTyped(KeyEvent e) {
         
     }
-
     @Override
     public void keyPressed(KeyEvent e) {
 
     }
-
     /* checks if a key pressed is equal to a key */
     @Override
     public void keyReleased(KeyEvent e) {
@@ -224,6 +221,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
             player.x = choice.get(0);
             player.y = choice.get(1);
             repaint();
+            gameOver(); // calls game over method (see java doc)
             return;
         }
 
@@ -259,14 +257,16 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 			player.movePlayer(key); // calls move method inside of player
 			repaint();
 		} else if (counter <= 20) { // next 10 times moves mhos
-			moveMhos();
+			for (int i = 0; i < mhos.size(); i++) {
+				mhos.get(i).moveTowards(player.x, player.y);
+			}
 			repaint();
 		} else {
 			t.stop(); // stops timer once done and resets counter to 0
 			counter = 0;
 			resetCoord();
 			for (int i = 0; i < mhos.size(); i++) {
-				if (isEmpty(mhos.get(i).x, mhos.get(i).y) == 1) {
+				if (isEmpty(mhos.get(i).x, mhos.get(i).y) > 0) {
 					mhos.remove(i);
 				}
 			}
