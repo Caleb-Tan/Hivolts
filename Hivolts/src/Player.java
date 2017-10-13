@@ -27,39 +27,39 @@ public class Player extends Element {
 	protected void movePlayer(int key) {
 		switch (key) {
 			case KeyEvent.VK_W: {
-				move(0, -1);
+				move(0, -1);	// move up
 				break;
 			}
 			case KeyEvent.VK_X: {
-				move(0, 1);
+				move(0, 1); // move down
 				break;
 			}
 			case KeyEvent.VK_A: {
-				move(-1, 0);
+				move(-1, 0); // move left
 				break;
 			}
 			case KeyEvent.VK_D: {
-				move(1, 0);
+				move(1, 0); // move right
 				break;
 			}
 			case KeyEvent.VK_Q: {
-				move(-1, -1);
+				move(-1, -1); // move up left
 				break;
 			}
 			case KeyEvent.VK_E: {
-				move(1, -1);
+				move(1, -1); // move up right
 				break;
 			}
 			case KeyEvent.VK_Z: {
-				move(-1, 1);
+				move(-1, 1); // move down left
 				break;
 			}
 			case KeyEvent.VK_C: {
-				move(1, 1);
+				move(1, 1); // move down right
 				break;
 			}
 			case KeyEvent.VK_S: {
-				move(0, 0);
+				move(0, 0); // stay in placec
 				break;
 			}
 			default: {

@@ -34,7 +34,8 @@ The project has multiple methods, classes, and objects. Each part is listed belo
 
 - **Element.java** - This class serves as the base class for the mho, fence, and player class. It contains the x and y coordinates, since the mhos, fences, and player all have x and y coordinates. The getGridCoord() class method also returns the cells coordinates for generateElements() in Game.java to use. Finally, the move() method takes in the x and y coordinates given to it by the player or mho to change the x and y's accordingly. 
 - **Fence.java** - Fence is a child class of ELement and since it's position stays the same through out the whole code, it doesn't have a move function and is simply painted when called. 
-- **Mho.java** - This class is to create the mho object. Inside this class, there is the code which repositions the mho based on where the player is and calls the move() method to do so.
+- **Mho.java** - This class is to create the mho object. Inside this class, there is the code which repositions the mho based on where the player is and calls the move() method to do so. See the comments. 
+- **Player.java** - The final class is the Player.java class. An object of this class is created in Game.java, and is involved with the key and actionListener to change the player's position based on the key presses. In Player.java, the movePlayer method takes in the key code given to it by actionListener, and then changes the x or y position based on the key, which then is given a 6x multiplier in the move method of element, as is the same with Mho. 
 
 
 
