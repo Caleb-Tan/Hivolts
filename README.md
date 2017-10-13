@@ -19,8 +19,8 @@ Another main error we encountered was that the mhos would sometimes be able to o
 
 ## Specifications
 The project has multiple methods, classes, and objects. Each part is listed below: </br></br>
-**Main.java** - The class contains the main method which initializes the game panel, the jframe to contain the panel, and it packs and adds the panel to the jframe. </br></br>
-**Game.java** - Game is the jpanel class that displays the game, and it also contains all the game logic. It implements ActionListener and KeyListener. KeyListener has methods that get invoked when a key is pressed, while action listener is invoked when the timer is run. Important properties:
+- **Main.java** - The class contains the main method which initializes the game panel, the jframe to contain the panel, and it packs and adds the panel to the jframe.
+- **Game.java** - Game is the jpanel class that displays the game, and it also contains all the game logic. It implements ActionListener and KeyListener. KeyListener has methods that get invoked when a key is pressed, while action listener is invoked when the timer is run. Important properties:
   - Game() constructor - This constructor is for the game method and is run upon intialization, it adds the key listener to the jpanel, and calls the startGame() method.
   - startGame() - It starts the game by clearing the fences and mhos arraylists of all objects, as well as calling the generateElements() method. startGame() is called whenever the game is reset.
   - generateElements() - This method generates every single element on the board. It first loops through the outer perimeter fences and adds each fence object to the fences array. Then, it shuffles the arraylist that contains each possible cell and its cell coordinates. Finally, the first 12 coord sets are given to mhos, the next 20 are given to the inner fences, and last one is given to the starting position of the player
@@ -31,10 +31,10 @@ The project has multiple methods, classes, and objects. Each part is listed belo
   - paintEndScreen() - paints the gameOverScreen based on parameters given to it by the call to it in the gameOver() method. 
   - keyReleased() - It is the method used that comes from the KeyListener implementation. When a key is pressed, this method checks to see if it's a move command, or a key to restart, and then either repaints the whole screen, or makes the key code public for actionPerformed() to use. If it is a move command, the method will also start the timer. 
   - actionPerformed() - This important method is invoked whenever the timer is started, and it is called every 1 millisecond, as specified in the timer object declaration. The purpose of this method is to allow for smooth movement. Essentially, it calls the player.movePlayer 10 times, and player.movePlayer increments the player's location by 6 each time, for a total of 60. It does the same thing afterwards to the mhos as well. Finally, the method stops the timer, resets the counter to 0, checks to see if any mhos have collided, repaints everything, and then calls gameOver() to check if the game is over. 
-</br></br>
-**Element.java** - This class serves as the base class for the mho, fence, and player class. It contains the x and y coordinates, since the mhos, fences, and player all have x and y coordinates. The getGridCoord() class method also returns the cells coordinates for generateElements() in Game.java to use. Finally, the move() method takes in the x and y coordinates given to it by the player or mho to change the x and y's accordingly. </br></br>
-**Fence.java** - Fence is a child class of ELement and since it's position stays the same through out the whole code, it doesn't have a move function and is simply painted when called. 
-**Mho.java** - This class is to create the mho object. Inside this class, there is the code which repositions the mho based on where the player is and calls the move() method to do so.
+
+- **Element.java** - This class serves as the base class for the mho, fence, and player class. It contains the x and y coordinates, since the mhos, fences, and player all have x and y coordinates. The getGridCoord() class method also returns the cells coordinates for generateElements() in Game.java to use. Finally, the move() method takes in the x and y coordinates given to it by the player or mho to change the x and y's accordingly. 
+- **Fence.java** - Fence is a child class of ELement and since it's position stays the same through out the whole code, it doesn't have a move function and is simply painted when called. 
+- **Mho.java** - This class is to create the mho object. Inside this class, there is the code which repositions the mho based on where the player is and calls the move() method to do so.
 
 
 
