@@ -42,7 +42,7 @@ The project has multiple methods, classes, and objects. Each part is listed belo
 
 The table below shows what my projected deadlines were and when I actually completed each part of my project. 
 
-![table](deadlines.jpg)
+![Deadlines](deadlines.jpg)
 
 ## Acknowledgements
 
