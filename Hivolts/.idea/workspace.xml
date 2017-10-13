@@ -24,11 +24,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Game.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Game.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Game.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="273" column="35" lean-forward="false" selection-start-line="273" selection-start-column="35" selection-end-line="273" selection-end-column="35" />
+            <state relative-caret-position="-1125">
+              <caret line="174" column="22" lean-forward="true" selection-start-line="174" selection-start-column="22" selection-end-line="174" selection-end-column="22" />
               <folding>
                 <element signature="e#991#992#0" expanded="true" />
                 <element signature="e#1028#1029#0" expanded="true" />
@@ -37,7 +37,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Fence.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Fence.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Fence.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="180">
@@ -106,8 +106,13 @@
       <find>&quot;hi&quot;</find>
       <find>mhos.remove</find>
       <find>moveMhos()</find>
-      <find>isEmpty</find>
       <find>state</find>
+      <find>mhos.remove(i)</find>
+      <find>resetCoord</find>
+      <find>isEmpty</find>
+      <find>gameOver</find>
+      <find>paintEndScreen</find>
+      <find>state = 1</find>
     </findStrings>
   </component>
   <component name="GradleLocalSettings">
@@ -689,14 +694,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Endscreen.java" />
-    <entry file="file://$PROJECT_DIR$/src/Fence.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="16" column="62" lean-forward="false" selection-start-line="16" selection-start-column="62" selection-end-line="16" selection-end-column="62" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Element.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="375">
@@ -735,12 +732,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Game.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="273" column="35" lean-forward="false" selection-start-line="273" selection-start-column="35" selection-end-line="273" selection-end-column="35" />
+        <state relative-caret-position="-1125">
+          <caret line="174" column="22" lean-forward="true" selection-start-line="174" selection-start-column="22" selection-end-line="174" selection-end-column="22" />
           <folding>
             <element signature="e#991#992#0" expanded="true" />
             <element signature="e#1028#1029#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Fence.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="16" column="62" lean-forward="false" selection-start-line="16" selection-start-column="62" selection-end-line="16" selection-end-column="62" />
+          <folding />
         </state>
       </provider>
     </entry>

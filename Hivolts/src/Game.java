@@ -52,10 +52,10 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 				mho.paintMho(g); // paints the mhos
 		}
 		else if (state == 2) {
-			paintEndScreen(g, "Game Over! :(", 250);
+			paintEndScreen(g, "Game Over! :(", 250); // if player has collided, paint gameover
 		}
 		else if (state == 3) {
-			paintEndScreen(g, "Congrats! You Won!", 200);
+			paintEndScreen(g, "Congrats! You Won!", 200);   // if there are no more mhos, paint: congrats you won
 		}
 	}
 
@@ -138,7 +138,6 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 	public static int isEmpty(int x, int y) {
 		int empty = 0;
 		for (Mho mho : mhos) {
-			
 			if ((mho.x + 12) / 60 * 60 == x && (mho.y + 12) / 60 * 60 == y) {
 				empty = 2; // the code 2 means there is a mho at the location
 			}
@@ -156,7 +155,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 	 * Adds 12 to bring all errors to above the actual value (bc max is +6)
 	 * and uses division and multiplication to round it down.
 	 */
-	private void resetCoord() {
+	private void roundCoords() {
 		for (int i = 0; i < mhos.size(); i++) {
 			mhos.get(i).x = (mhos.get(i).x + 12) / 60 * 60;
 			mhos.get(i).y = (mhos.get(i).y + 12) / 60 * 60;
@@ -175,8 +174,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 			// if player hits another mhoe or fence, paint the end screen saying game over
 			state = 2;
 			t.stop();
-		} else if (mhos.size() == 0) {
-			// if there are no more mhos, paint congrats you won
+		} else if (mhos.size() == 0) {  // indicates that there are no more mhos left
 			state = 3;
 			t.stop(); // stop the timer
 		}
@@ -263,14 +261,14 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 			repaint();
 		} else {
 			t.stop(); // stops timer once done and resets counter to 0
-			counter = 0;
-			resetCoord();
+			counter = 0;    // resets counter
+			roundCoords();  // rounds the coordinates to the correct places
 			for (int i = 0; i < mhos.size(); i++) {
 				if (isEmpty(mhos.get(i).x, mhos.get(i).y) > 0) {
-					mhos.remove(i);
+					mhos.remove(i);     // loops through mhos to check if any mhos hit a fence, if so then they are removed
 				}
 			}
-			repaint();  // repaints
+			repaint();     // repaints everything again
 			gameOver(); // calls game over method (see java doc)
 		}
 	}
