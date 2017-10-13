@@ -10,7 +10,7 @@ import java.util.Random;
 import javax.swing.*;
 
 public class Game extends JPanel implements KeyListener, ActionListener {
-	boolean invincible = false;
+	boolean invincible = true;
 	Timer t = new Timer(1, this);
 	private Player player; // declares player object to use later
 	static ArrayList<Fence> fences = new ArrayList<>(); // contains all the fences
