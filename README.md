@@ -27,7 +27,9 @@ The project has multiple methods, classes, and objects. Each part is listed belo
 - isEmpty() - This method can be called whenever needed. It returns one of three numbers to represent if the coords given in the parameter are already taken by a mho, fence, or nothing. 
 - moveMhos() - Used to call the moveTowards() method in the mho class for each mho.
 - resetCoord() - 
-- gameOver() - In this method, there is a call to isEmpty to check if the player's coordinates are conflicting with a mho or fence's coordinates. If so, then 
+- gameOver() - In this method, there is a call to isEmpty to check if the player's coordinates are conflicting with a mho or fence's coordinates. If so, then the paintEndScreen() method is called to paint the end screen saying game over. However, if all mhos have died, then the paintEndScreen() method is still called but with the parameters to paint Congratulations. Finally, the timer is stopped. It is important to note that this method is called whenever the game is repainted, so there is a constant update.  
+- 
+
 
 
 

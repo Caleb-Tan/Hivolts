@@ -171,7 +171,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
     /* method paints the end screen */
     private void paintEndScreen(Graphics g, String message, int offsetx) {
         try {
-            Thread.sleep(400); // sleeps 40 milliseconds
+            Thread.sleep(400); // sleeps 40 milliseconds to show how the player has collided with a mho or fence
         } catch (InterruptedException e) {
             System.out.println(e);
         }
@@ -179,8 +179,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
         g.fillRect(0, 0, 720, 720);
         g.setColor(Color.white);
         g.setFont(new Font("TimesRoman", Font.PLAIN, 40));
-        // draws Game Over or Congrats you won with the offset that corresponds to that
-        g.drawString(message, offsetx, 320);
+        g.drawString(message, offsetx, 320);       // draws Game Over or Congrats you won with the offset that corresponds to that
         g.setFont(new Font("TimesRoman", Font.PLAIN, 20));
         g.drawString("Press R to Restart", 290, 360);
     }
@@ -193,30 +192,32 @@ public class Game extends JPanel implements KeyListener, ActionListener {
     public void keyPressed(KeyEvent e) {
     }
 
+    /* checks if a key pressed is equal to a key */
     @Override
     public void keyReleased(KeyEvent e) {
-        int key = e.getKeyCode();
-        if (key == KeyEvent.VK_R) {
-            startGame();
+        int key = e.getKeyCode();   // the code of the key that the user pressed is stored as in int variable
+        if (key == KeyEvent.VK_R) { // if the key pressed was r
+            startGame();    // resets the board and repaints everything
             repaint();
             return;
-        } else if (key == KeyEvent.VK_J) {
+        } else if (key == KeyEvent.VK_J) {  // if key pressed was j, which is the jump method, the player is transported to a random location
             ArrayList<Integer> choice;
-            choice = Game.jumpArea.get(rand.nextInt(Game.jumpArea.size()));
+            choice = Game.jumpArea.get(rand.nextInt(Game.jumpArea.size())); // chooses a random coordinate pair from the possible coords to jump to
             player.x = choice.get(0);
             player.y = choice.get(1);
-            repaint(); // must remove/edit to prevent J from restarting the game
+            repaint();
             return;
         }
 
-        int[] keys = {
+        int[] possibleKeys = {
                 KeyEvent.VK_Q, KeyEvent.VK_W, KeyEvent.VK_E,
                 KeyEvent.VK_A, KeyEvent.VK_S, KeyEvent.VK_D,
-                KeyEvent.VK_Z, KeyEvent.VK_X, KeyEvent.VK_C};
-        for (int i = 0; i < keys.length; i++) {
-            if (keys[i] == key) {
-                this.key = key;
-                t.start();
+                KeyEvent.VK_Z, KeyEvent.VK_X, KeyEvent.VK_C
+        };   // list of possible keys stored in an array that the user can press to move
+        for (int i = 0; i < possibleKeys.length; i++) {
+            if (possibleKeys[i] == key) {   // if one of the keys pressed is a possible k
+                this.key = key;     // assigns the global variable key to match the key pressed (global variable )
+                t.start();      // begins the timer
                 break;
             }
         }
