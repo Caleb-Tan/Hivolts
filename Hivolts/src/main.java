@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 
 /**
  * Created by Caleb Tan on 9/26/2017.
@@ -13,4 +14,6 @@ public class main {
         frame.setResizable(false);
         frame.setVisible(true);
     }
+
+
 }
