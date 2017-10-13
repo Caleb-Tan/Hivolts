@@ -234,7 +234,6 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 				break;
 			}
 		}
-
 	}
 
 	int counter = 0; // counter to ensure that actionPerformed is not called an infinite amount of
