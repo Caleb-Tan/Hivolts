@@ -20,8 +20,15 @@ Another main error we encountered was that the mhos would sometimes be able to o
 ## Specifications
 The project has multiple methods, classes, and objects. Each part is listed below: </br></br>
 **Main.java** - The class contains the main method which initializes the game panel, the jframe to contain the panel, and it packs and adds the panel to the jframe.</br> 
-**Game.java** - Game is the jpanel class that displays the game, and it also contains all the game logic. 
-- Timer
+**Game.java** - Game is the jpanel class that displays the game, and it also contains all the game logic. Methods:
+- Game() constructor - This constructor is for the game method and is run upon intialization, it adds the key listener to the jpanel, and calls the startGame() method.
+- startGame() - It starts the game by clearing the fences and mhos arraylists of all objects, as well as calling the generateElements() method. startGame() is called whenever the game is reset.
+- generateElements() - This method generates every single element on the board. It first loops through the outer perimeter fences and adds each fence object to the fences array. Then, it shuffles the arraylist that contains each possible cell and its cell coordinates. Finally, the first 12 coord sets are given to mhos, the next 20 are given to the inner fences, and last one is given to the starting position of the player
+- isEmpty() - This method can be called whenever needed. It returns one of three numbers to represent if the coords given in the parameter are already taken by a mho, fence, or nothing. 
+- moveMhos() - Used to call the moveTowards() method in the mho class for each mho.
+- resetCoord() - 
+- gameOver() - In this method, there is a call to isEmpty to check if the player's coordinates are conflicting with a mho or fence's coordinates. If so, then 
+
 
 
 
