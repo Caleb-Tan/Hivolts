@@ -12,6 +12,7 @@ The game involves several elements: </br>
 **Player** - The player’s goal is to avoid the mhos and fences at all costs, but move in the way that the mhos chasing it end up hitting fences. The player can move up, down, left, right, diagonal right up, diagonal left up, diagonal right down, diagonal left down, or remain in their current position by pressing the “s” key. </br>
 **Mhos** The Mhos goal in this game it to kill the player(you).  They are your enemy. They move in the way that the player moves. This means that ALL the mhos will move to where your new location and to trap and kill you.  </br>
 **Scoreboard, and Game Over Screen** - The scoreboard is below the playing board, and shows the creators of the game, as well as how many mhos are left alive. If the player ends up hitting a fence OR a mho catches the player, the game over screen is painted, which gives the player the ability to restart the game. </br>
+**Random Generation** - The random generation is the part of the program which randomly generates the starting places of the internal mhos and fences. I was able to make it so that 
 
 ## Errors and Challenges
 There were several errors that we encountered. The first major error that happened was that the images were not showing up on some people’s computers. Even though, the paths were correct and relative to the file that it was being referenced to, an IO File not found exception kept getting thrown when trying to run the program. In the end, we made 3 consts in the Element.java class that stored the relative and absolute path sets as string variables, so that we could easily switch between the two paths. </br></br>
@@ -37,11 +38,17 @@ The project has multiple methods, classes, and objects. Each part is listed belo
 - **Mho.java** - This class is to create the mho object. Inside this class, there is the code which repositions the mho based on where the player is and calls the move() method to do so. See the comments. 
 - **Player.java** - The final class is the Player.java class. An object of this class is created in Game.java, and is involved with the key and actionListener to change the player's position based on the key presses. In Player.java, the movePlayer method takes in the key code given to it by actionListener, and then changes the x or y position based on the key, which then is given a 6x multiplier in the move method of element, as is the same with Mho. 
 
+## Projected Deadlines vs Actual Completion
+
+The table below shows what my projected deadlines were and when I actually completed each part of my project. 
+
+![alt text](https://imgur.com/a/69tVa)
+
 ## Acknowledgements
 
-The project work was split among the 3 members. I (Caleb) was in charge of creating each element and doing some of the game logic, as well as the smooth movement. Brion was in charge of working on the rest of the game logic and the mho movement. Julius worked on the key listeners.
+The project work was split among the 3 members. I (Caleb) was in charge of creating each element and doing some of the game logic, as well as the smooth movement and random generation. Brion was in charge of working on the rest of the game logic and the mho movement. Julius worked on the key listeners.
 
-I would additionally like to thank Jason's group from Period 4 for giving me the idea of having smooth movement and the scoreboard below the game. :+1::skin-tone-6: to them.
+I would additionally like to thank Jason's group from Period 4 for giving me the idea of having smooth movement and the scoreboard below the game. :+1: to them.
 
 
 

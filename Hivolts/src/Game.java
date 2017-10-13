@@ -16,9 +16,10 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 	static ArrayList<Fence> fences = new ArrayList<>(); // contains all the fences
 	static ArrayList<Mho> mhos = new ArrayList<>(); // contains all the mhos
 	static ArrayList<ArrayList<Integer>> jumpArea;
-	int key;
+	int key;    // set to the keycode to be used by actionListener method
 	Random rand = new Random();
-	int state;
+	int state;  // stores what state the program is in
+	int moves;  // keeps track of how many moves were made. Is incremented by one everytime move key is pressed
 
 	Game() {
 		addKeyListener(this);
@@ -29,7 +30,6 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
 	public void startGame() {
 		state = 1;
-		System.out.println("Game Restarted");
 		fences.clear();
 		mhos.clear();
 		generateElements();
@@ -53,7 +53,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		} else if (state == 2) {
 			paintEndScreen(g, "Game Over! :(", 250); // if player has collided
 		} else if (state == 3) {
-			paintEndScreen(g, "Congrats! You Won!", 200); // if there are no more mhos
+			paintEndScreen(g, "Congrats! You won in " + Integer.toString(moves) + " moves", 100); // if there are no more mhos
 		}
 	}
 
@@ -186,16 +186,16 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 	public void keyReleased(KeyEvent e) {
 		int key = e.getKeyCode(); // key value that the user pressed is stored as an int
 		if (key == KeyEvent.VK_R) { // if the key pressed was r
+            moves = 0;
 			startGame(); // resets the board and repaints everything
 			repaint();
 			return;
-		} else if (key == KeyEvent.VK_J) { // if key pressed was j, which is the jump method,
-											// the player is transported to a random location
+		} else if (key == KeyEvent.VK_J) { // if key pressed was j, which is the jump method, the player is transported to a random location
 			ArrayList<Integer> choice;
-			//chooses a random valid coordinate to jump to
-			choice = Game.jumpArea.get(rand.nextInt(Game.jumpArea.size()));
+			choice = Game.jumpArea.get(rand.nextInt(Game.jumpArea.size())); //chooses a random valid coordinate to jump to of the possible choices
 			player.x = choice.get(0);
 			player.y = choice.get(1);
+			moves++; // adds 1 move to the move counter
 			repaint();
 			gameOver(); // calls game over method (see java doc)
 			return;
@@ -206,8 +206,10 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		for (int i = 0; i < possibleKeys.length; i++) {
 			if (possibleKeys[i] == key) { // if one of the keys pressed is a possible k
 				this.key = key; // assigns the global variable key to match the key pressed
-				if (state == 1)
+				if (state == 1){
 					t.start(); // begins the timer
+                    moves++; // adds 1 move to the move counter
+                }
 				break;
 			}
 		}
