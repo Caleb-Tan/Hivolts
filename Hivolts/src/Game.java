@@ -51,9 +51,9 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 			for (Mho mho : mhos)
 				mho.paintMho(g); // paints the mhos
 		} else if (state == 2) {
-			paintEndScreen(g, "Game Over! :(", 250);
+			paintEndScreen(g, "Game Over! :(", 250); // if player has collided
 		} else if (state == 3) {
-			paintEndScreen(g, "Congrats! You Won!", 200);
+			paintEndScreen(g, "Congrats! You Won!", 200); // if there are no more mhos
 		}
 	}
 
@@ -136,7 +136,6 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 	public static int isEmpty(int x, int y) {
 		int empty = 0;
 		for (Mho mho : mhos) {
-
 			if ((mho.x + 12) / 60 * 60 == x && (mho.y + 12) / 60 * 60 == y) {
 				empty = 2; // the code 2 means there is a mho at the location
 			}
@@ -154,7 +153,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 	 * errors to above the actual value (bc max is +6) and uses division and
 	 * multiplication to round it down.
 	 */
-	private void resetCoord() {
+	private void roundCoords() {
 		for (int i = 0; i < mhos.size(); i++) {
 			mhos.get(i).x = (mhos.get(i).x + 12) / 60 * 60;
 			mhos.get(i).y = (mhos.get(i).y + 12) / 60 * 60;
@@ -173,8 +172,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 			// if player hits another mhoe or fence, paint the end screen saying game over
 			state = 2;
 			t.stop();
-		} else if (mhos.size() == 0) {
-			// if there are no more mhos, paint congrats you won
+		} else if (mhos.size() == 0) { // indicates that there are no more mhos left
 			state = 3;
 			t.stop(); // stop the timer
 		}
@@ -183,8 +181,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 	/* method paints the end screen */
 	private void paintEndScreen(Graphics g, String message, int offsetx) {
 		try {
-			Thread.sleep(400); // sleeps 40 milliseconds to show how the player has collided with a mho or
-								// fence
+			Thread.sleep(400); // sleeps 40 milliseconds to show how the player lost
 		} catch (InterruptedException e) {
 			System.out.println(e);
 		}
@@ -192,8 +189,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		g.fillRect(0, 0, 720, 720);
 		g.setColor(Color.white);
 		g.setFont(new Font("TimesRoman", Font.PLAIN, 40));
-		g.drawString(message, offsetx, 320); // draws Game Over or Congrats you won with the offset that corresponds to
-												// that
+		g.drawString(message, offsetx, 320); // draws message with appropriate offset
 		g.setFont(new Font("TimesRoman", Font.PLAIN, 20));
 		g.drawString("Press R to Restart", 290, 360);
 	}
@@ -211,29 +207,28 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 	/* checks if a key pressed is equal to a key */
 	@Override
 	public void keyReleased(KeyEvent e) {
-		int key = e.getKeyCode(); // the code of the key that the user pressed is stored as in int variable
+		int key = e.getKeyCode(); // key value that the user pressed is stored as an int
 		if (key == KeyEvent.VK_R) { // if the key pressed was r
 			startGame(); // resets the board and repaints everything
 			repaint();
 			return;
-		} else if (key == KeyEvent.VK_J) { // if key pressed was j, which is the jump method, the player is transported
-											// to a random location
+		} else if (key == KeyEvent.VK_J) { // if key pressed was j, which is the jump method,
+											// the player is transported to a random location
 			ArrayList<Integer> choice;
-			choice = Game.jumpArea.get(rand.nextInt(Game.jumpArea.size())); // chooses a random coordinate pair from the
-																			// possible coords to jump to
+			//chooses a random valid coordinate to jump to
+			choice = Game.jumpArea.get(rand.nextInt(Game.jumpArea.size()));
 			player.x = choice.get(0);
 			player.y = choice.get(1);
 			repaint();
 			gameOver(); // calls game over method (see java doc)
 			return;
 		}
-
-		int[] possibleKeys = { KeyEvent.VK_Q, KeyEvent.VK_W, KeyEvent.VK_E, KeyEvent.VK_A, KeyEvent.VK_S, KeyEvent.VK_D,
-				KeyEvent.VK_Z, KeyEvent.VK_X, KeyEvent.VK_C }; // list of possible keys stored in an array that the user
-																// can press to move
+		// List of possible keys the user can press to move
+		int[] possibleKeys = { KeyEvent.VK_Q, KeyEvent.VK_W, KeyEvent.VK_E, KeyEvent.VK_A, 
+				KeyEvent.VK_S, KeyEvent.VK_D, KeyEvent.VK_Z, KeyEvent.VK_X, KeyEvent.VK_C };
 		for (int i = 0; i < possibleKeys.length; i++) {
 			if (possibleKeys[i] == key) { // if one of the keys pressed is a possible k
-				this.key = key; // assigns the global variable key to match the key pressed (global variable)
+				this.key = key; // assigns the global variable key to match the key pressed
 				if (state == 1)
 					t.start(); // begins the timer
 				break;
@@ -266,24 +261,15 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 			repaint();
 		} else {
 			t.stop(); // stops timer once done and resets counter to 0
-			counter = 0;
-			resetCoord();
+			counter = 0; // resets counter
+			roundCoords(); // rounds the coordinates to the correct places
 			for (int i = 0; i < mhos.size(); i++) {
 				if (isEmpty(mhos.get(i).x, mhos.get(i).y) > 0) {
-					mhos.remove(i);
+					mhos.remove(i); // loops through mhos to check if any mhos hit a fence
 				}
 			}
-			repaint();
+			repaint(); // repaints everything again
 			gameOver(); // calls game over method (see java doc)
-			// for debugging purposes
-			System.out.println("Player coords: " + player.x + " " + player.y);
-			for (Mho mho : mhos) {
-				System.out.println("MHO: " + mho.x + " " + mho.y);
-			}
-			for (int x = 43; x < 64; x++) {
-				System.out.println("FENCE " + fences.get(x).x + " " + fences.get(x).y);
-			}
-			System.out.println("--------");
 		}
 	}
 }
