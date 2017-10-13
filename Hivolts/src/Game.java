@@ -242,47 +242,45 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
     }
 
-    int counter = 0;
+	int counter = 0;
 
-    /*
-     * implemented method is called when the timer starts. every 1 ms, the method
-     * will be called until timer stops. move() method in Element.java increments
-     * the x by 6 each time, so method must be called 10 times for each component to
-     * reach 60
-     */
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        // increments counter
-        counter++;
-        // first 10 times moves player
-        if (counter <= 10) {
-            player.movePlayer(key); // calls move method inside of player
-            repaint();
-        } else if (counter <= 20) { // next 10 times moves mhos
-            System.out.print("\n");
-            moveMhos();
-            repaint();
-        } else {
-            t.stop(); // stops timer once done and resets counter to 0
-            counter = 0;
-            resetCoord();
-            for (int i = 0; i < mhos.size(); i++) {
-                if (isEmpty(mhos.get(i).x, mhos.get(i).y) == 1) {
-                    mhos.remove(i);
-                }
-            }
-            repaint();
-
-            // for debugging purposes
-            System.out.println("Player coords: " + player.x + " " + player.y);
-            for (Mho mho : mhos) {
-                System.out.println("MHO: " + mho.x + " " + mho.y);
-            }
-            for (int x = 43; x < 64; x++) {
-                System.out.println("FENCE " + fences.get(x).x + " " + fences.get(x).y);
-            }
-            System.out.println("--------");
-        }
-    }
-
+	/*
+	 * implemented method is called when the timer starts. every 1 ms, the method
+	 * will be called until timer stops. move() method in Element.java increments
+	 * the x by 6 each time, so method must be called 10 times for each component to
+	 * reach 60
+	 */
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// increments counter
+		counter++;
+		// first 10 times moves player
+		if (counter <= 10) {
+			player.movePlayer(key); // calls move method inside of player
+			repaint();
+		} else if (counter <= 20) { // next 10 times moves mhos
+			moveMhos();
+			repaint();
+		} else {
+			t.stop(); // stops timer once done and resets counter to 0
+			counter = 0;
+			resetCoord();
+			for (int i = 0; i < mhos.size(); i++) {
+				if (isEmpty(mhos.get(i).x, mhos.get(i).y) == 1) {
+					mhos.remove(i);
+				}
+			}
+			repaint();
+			gameOver(); // calls game over method (see java doc)
+			// for debugging purposes
+			System.out.println("Player coords: " + player.x + " " + player.y);
+			for (Mho mho : mhos) {
+				System.out.println("MHO: " + mho.x + " " + mho.y);
+			}
+			for (int x = 43; x < 64; x++) {
+				System.out.println("FENCE " + fences.get(x).x + " " + fences.get(x).y);
+			}
+			System.out.println("--------");
+		}
+	}
 }
