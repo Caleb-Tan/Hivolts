@@ -126,29 +126,6 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 	}
 
 	/*
-	 * isEmpty checks if a given coordinate on the grid is empty (void of mhos or
-	 * fences).
-	 * 
-	 * @param coordinates
-	 * 
-	 * @return whether there is a mho, fence, or neither at the location
-	 */
-	public static int isEmpty(int x, int y) {
-		int empty = 0;
-		for (Mho mho : mhos) {
-			if ((mho.x + 12) / 60 * 60 == x && (mho.y + 12) / 60 * 60 == y) {
-				empty = 2; // the code 2 means there is a mho at the location
-			}
-		}
-		for (Fence fence : fences) {
-			if ((fence.x + 12) / 60 * 60 == x && (fence.y + 12) / 60 * 60 == y) {
-				empty = 1; // the code 1 means there is a fence at the location
-			}
-		}
-		return empty;
-	}
-
-	/*
 	 * Fixes rounding errors caused by the smooth movement. Adds 12 to bring all
 	 * errors to above the actual value (bc max is +6) and uses division and
 	 * multiplication to round it down.
@@ -236,9 +213,32 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		}
 
 	}
-
-	int counter = 0; // counter to ensure that actionPerformed is not called an infinite amount of
-						// times when timer is begun
+	/*
+	 * isEmpty checks if a given coordinate on the grid is empty (void of mhos or
+	 * fences).
+	 * 
+	 * @param coordinates
+	 * 
+	 * @return whether there is a mho, fence, or neither at the location
+	 */
+	public static int isEmpty(int x, int y) {
+		int empty = 0;
+		for (Mho mho : mhos) {
+			//if ((mho.x + 12) / 60 * 60 == x && (mho.y + 12) / 60 * 60 == y) {
+			if (mho.x == x && mho.y == y) {
+				empty = 2; // the code 2 means there is a mho at the location
+			}
+		}
+		for (Fence fence : fences) {
+			//if ((fence.x + 12) / 60 * 60 == x && (fence.y + 12) / 60 * 60 == y) {
+			if (fence.x == x && fence.y == y) {
+				empty += 1; // the code 1 means there is a fence at the location
+							// if both are there then the code is 3
+			}
+		}
+		return empty;
+	}
+	int counter = 0; // limits number of times actionPerformed is called
 
 	/*
 	 * implemented method is called when the timer starts. every 1 ms, the method
@@ -263,11 +263,13 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 			t.stop(); // stops timer once done and resets counter to 0
 			counter = 0; // resets counter
 			roundCoords(); // rounds the coordinates to the correct places
-			for (int i = 0; i < mhos.size(); i++) {
-				if (isEmpty(mhos.get(i).x, mhos.get(i).y) > 0) {
+			for (int i = mhos.size()-1; i >= 0; i--) {
+				if (isEmpty(mhos.get(i).x, mhos.get(i).y) == 1) {
+					System.out.print(i + " ");
 					mhos.remove(i); // loops through mhos to check if any mhos hit a fence
 				}
 			}
+			System.out.println();
 			repaint(); // repaints everything again
 			gameOver(); // calls game over method (see java doc)
 		}
