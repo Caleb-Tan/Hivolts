@@ -211,7 +211,6 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 				break;
 			}
 		}
-
 	}
 	/*
 	 * isEmpty checks if a given coordinate on the grid is empty (void of mhos or
