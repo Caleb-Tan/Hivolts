@@ -183,32 +183,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		}
 	}
 
-	/* method to paint the end screen */
-	private void paintEndScreen(Graphics g, String message, int offsetx) {
-		try {
-			Thread.sleep(400); // sleeps 40 milliseconds
-		} catch (InterruptedException e) {
-			System.out.println(e);
-		}
-		g.setColor(Color.darkGray);
-		g.fillRect(0, 0, 720, 720);
-		g.setColor(Color.white);
-		g.setFont(new Font("TimesRoman", Font.PLAIN, 40));
-		// draws Game Over or Congrats you won with the offset that corresponds to that
-		g.drawString(message, offsetx, 320);
-		g.setFont(new Font("TimesRoman", Font.PLAIN, 20));
-		g.drawString("Press R to Restart", 290, 360);
-	}
 
-	@Override
-	public void keyTyped(KeyEvent e) {
-	}
-
-	@Override
-	public void keyPressed(KeyEvent e) {
-	}
-
-<<<<<<< HEAD
     /* method paints the end screen */
     private void paintEndScreen(Graphics g, String message, int offsetx) {
         try {
@@ -224,38 +199,17 @@ public class Game extends JPanel implements KeyListener, ActionListener {
         g.setFont(new Font("TimesRoman", Font.PLAIN, 20));
         g.drawString("Press R to Restart", 290, 360);
     }
-=======
-	@Override
-	public void keyReleased(KeyEvent e) {
->>>>>>> f6e7b17bbaf41f678e1868b6da82d6d45fafa09b
 
-		int key = e.getKeyCode();
-		if (key == KeyEvent.VK_R) {
-			startGame();
-			return;
-		} else if (state == 1) {
-			if (key == KeyEvent.VK_J) {
-				ArrayList<Integer> choice;
-				choice = Game.jumpArea.get(rand.nextInt(Game.jumpArea.size()));
-				player.x = choice.get(0);
-				player.y = choice.get(1);
-				repaint(); // must remove/edit to prevent J from restarting the game
-				return;
-			}
+    @Override
+    public void keyTyped(KeyEvent e) {
+        
+    }
 
-			int[] keys = { KeyEvent.VK_Q, KeyEvent.VK_W, KeyEvent.VK_E, KeyEvent.VK_A, KeyEvent.VK_S, KeyEvent.VK_D,
-					KeyEvent.VK_Z, KeyEvent.VK_X, KeyEvent.VK_C };
-			for (int i = 0; i < keys.length; i++) {
-				if (keys[i] == key) {
-					this.key = key;
-					t.start();
-					break;
-				}
-			}
-		}
-	}
+    @Override
+    public void keyPressed(KeyEvent e) {
 
-<<<<<<< HEAD
+    }
+
     /* checks if a key pressed is equal to a key */
     @Override
     public void keyReleased(KeyEvent e) {
@@ -330,47 +284,5 @@ public class Game extends JPanel implements KeyListener, ActionListener {
             System.out.println("--------");
         }
     }
-=======
-	int counter = 0;
 
-	/*
-	 * implemented method is called when the timer starts. every 1 ms, the method
-	 * will be called until timer stops. move() method in Element.java increments
-	 * the x by 6 each time, so method must be called 10 times for each component to
-	 * reach 60
-	 */
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// increments counter
-		counter++;
-		// first 10 times moves player
-		if (counter <= 10) {
-			player.movePlayer(key); // calls move method inside of player
-			repaint();
-		} else if (counter <= 20) { // next 10 times moves mhos
-			moveMhos();
-			repaint();
-		} else {
-			t.stop(); // stops timer once done and resets counter to 0
-			counter = 0;
-			resetCoord();
-			for (int i = 0; i < mhos.size(); i++) {
-				if (isEmpty(mhos.get(i).x, mhos.get(i).y) == 1) {
-					mhos.remove(i);
-				}
-			}
-			repaint();
-			gameOver(); // calls game over method (see java doc)
-			// for debugging purposes
-			System.out.println("Player coords: " + player.x + " " + player.y);
-			for (Mho mho : mhos) {
-				System.out.println("MHO: " + mho.x + " " + mho.y);
-			}
-			for (int x = 43; x < 64; x++) {
-				System.out.println("FENCE " + fences.get(x).x + " " + fences.get(x).y);
-			}
-			System.out.println("--------");
-		}
-	}
->>>>>>> f6e7b17bbaf41f678e1868b6da82d6d45fafa09b
 }
