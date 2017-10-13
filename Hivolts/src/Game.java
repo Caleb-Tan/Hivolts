@@ -26,7 +26,6 @@ public class Game extends JPanel implements KeyListener, ActionListener {
     }
 
     public void startGame() {
-        System.out.println("Game Restarted");
         fences.clear();
         mhos.clear();
         generateElements();
@@ -34,7 +33,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
     @Override
     public Dimension getPreferredSize() {
-        return new Dimension(720, 830);
+        return new Dimension(720, 830); // sets dimension
     }
 
     // Paints everything
@@ -72,10 +71,9 @@ public class Game extends JPanel implements KeyListener, ActionListener {
      */
     private void generateElements() {
         ArrayList<Integer> coords = Element.getGridCoords(); // get the grid coords
-        // makes the arraylist that contains arraylists to represent each cell coord
-        ArrayList<ArrayList<Integer>> shuffledCoords = new ArrayList<>();
+        ArrayList<ArrayList<Integer>> shuffledCoords = new ArrayList<>(); // makes the arraylist that contains arraylists to represent each cell coord (will be shuffled later)
 
-        for (int i = 0; i <= 11; i++) { // creates the external fence objects
+        for (int i = 0; i <= 11; i++) { // creates the external fence objects and adds them to the fences array
             fences.add(new Fence(0, coords.get(i)));
             fences.add(new Fence(660, coords.get(i)));
         }
@@ -87,43 +85,49 @@ public class Game extends JPanel implements KeyListener, ActionListener {
         coords.remove(0); // removes 60 and 660 so that only inside cells are considered
         coords.remove(10); // when randomly generating internal fences and mhos
 
+        // loops through the internal cells to add their coords to the shuffledCoords
         for (int i = 0; i <= 9; i++) {
             for (int j = 0; j <= 9; j++) {
-                ArrayList<Integer> x = new ArrayList<>();
-                x.add(coords.get(i));
+                ArrayList<Integer> x = new ArrayList<>();   // creates a temporary arraylist which will store the individual cell's coords
+                x.add(coords.get(i));   // adds the individual coords to the temporary integer arraylist
                 x.add(coords.get(j));
-                shuffledCoords.add(x);
+                shuffledCoords.add(x);  // adds the integer arraylist to the shuffledCoords array
             }
         }
-        jumpArea = shuffledCoords;
-        int cx, cy;
+        jumpArea = shuffledCoords; // sets jumpArea to equal shuffled coords. jumpArea will be used later
         // shuffles the collection with each cell coord in it
-        Collections.shuffle(shuffledCoords);
+
+        Collections.shuffle(shuffledCoords); // shuffles the cell coordinate arraylist
+
         for (int i = 0; i <= 32; i++) {
+            int cx, cy;
             cx = shuffledCoords.get(i).get(0);
             cy = shuffledCoords.get(i).get(1);
             if (i <= 11) {
-                // first 12 of the shuffled coords are mhos
+                // first 12 of the shuffled coords are for mhos
                 mhos.add(new Mho(cx, cy));
             } else if (i <= 31) {
-                // next 20 of the shuffled coords are fences
+                // next 20 of the shuffled coords are for fences
                 fences.add(new Fence(cx, cy));
-                jumpArea.remove(i);
+                jumpArea.remove(i);     // removes that cell instance from jumpArea, so that player does not jump on fence
             } else {
-                // 33rd coordinate is player
+                // 33rd set of coordinates are given to player
                 player = new Player(cx, cy);
             }
         }
     }
 
-    public static int isEmpty(int x, int y) {
+    /* isEmpty() method is used to check if a set of coords are the
+    * same as the mhos or fences. If they are, then it will return
+    * a digit representing that */
+    private static int isEmpty(int x, int y) {
         int empty = 0;
-        for (Mho mho : mhos) {
+        for (Mho mho : mhos) {  // checks if any mhos are the same as the given coord
             if (mho.x == x && mho.y == y) {
                 empty = 2;
             }
         }
-        for (Fence fence : fences) {
+        for (Fence fence : fences) {    // checks if any fences are the same as the given coord
             if (fence.x == x && fence.y == y) {
                 empty = 1;
             }
@@ -131,12 +135,14 @@ public class Game extends JPanel implements KeyListener, ActionListener {
         return empty;
     }
 
+    /* Calls the moveTowards player method in mho class to move each mho towards player if necessary */
     private void moveMhos() {
         for (int i = 0; i < mhos.size(); i++) {
             mhos.get(i).moveTowards(player.x, player.y);
         }
     }
 
+    /* */
     private void resetCoord() {
         for (int i = 0; i < mhos.size(); i++) {
             mhos.get(i).x = (mhos.get(i).x + 12) / 60 * 60;
@@ -153,7 +159,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
     private void gameOver(Graphics g) {
         // if player's coords are not empty, and are occupied by another element
         if (isEmpty(player.x, player.y) > 0) {
-            // if player hits another mhoe or fence, paint the end screen saying game over
+            // if player hits another mho or fence, paint the end screen saying game over
             paintEndScreen(g, "Game Over! :(", 250);
         } else if (mhos.size() == 0) {
             // if there are no more mhos, paint congrats you won
