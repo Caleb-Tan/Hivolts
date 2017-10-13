@@ -23,7 +23,7 @@ public class Element {
 	
 	int x, y;   // x and y variables to store the current coords of game, fence, and player
 
-    /* moves the */
+    /* changes the x and y based upon the new directions given to it by mho, and player */
 	protected void move(int xrel, int yrel) {
             x += (6 * xrel);
             y += (6 * yrel);
