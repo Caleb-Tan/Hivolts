@@ -271,17 +271,8 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 					mhos.remove(i);
 				}
 			}
-			repaint();
+			repaint();  // repaints
 			gameOver(); // calls game over method (see java doc)
-			// for debugging purposes
-			System.out.println("Player coords: " + player.x + " " + player.y);
-			for (Mho mho : mhos) {
-				System.out.println("MHO: " + mho.x + " " + mho.y);
-			}
-			for (int x = 43; x < 64; x++) {
-				System.out.println("FENCE " + fences.get(x).x + " " + fences.get(x).y);
-			}
-			System.out.println("--------");
 		}
 	}
 }
