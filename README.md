@@ -13,11 +13,11 @@ The game involves several elements: </br>
 **Mhos** The Mhos goal in this game it to kill the player(you).  They are your enemy. They move in the way that the player moves. This means that ALL the mhos will move to where your new location and to trap and kill you.  </br>
 **Scoreboard, and Game Over Screen** - The scoreboard is below the playing board, and shows the creators of the game, as well as how many mhos are left alive. If the player ends up hitting a fence OR a mho catches the player, the game over screen is painted, which gives the player the ability to restart the game. </br>
 
-## Errors
+## Errors and Challenges
 There were several errors that we encountered. The first major error that happened was that the images were not showing up on some people’s computers. Even though, the paths were correct and relative to the file that it was being referenced to, an IO File not found exception kept getting thrown when trying to run the program. In the end, we made 3 consts in the Element.java class that stored the relative and absolute path sets as string variables, so that we could easily switch between the two paths. </br></br>
 Another main error we encountered was that the mhos would sometimes be able to occupy the same spot as a fence, and two mhos could be able to occupy the same cell. When debugging this issue, we realized that the issue was that the mho would be 1 or 2 digits off of where it is supposed to be. As of right now, we have not been able to determine why it would be 1 or 2 digits off, so Brion was forced to  implement a quick fix that would round the mho coordinates to the nearest cell's digits. As crude as this fix was, it served its purpose.  
 
-## Specifications
+## Overview of Code
 The project has multiple methods, classes, and objects. Each part is listed below: </br></br>
 - **Main.java** - The class contains the main method which initializes the game panel, the jframe to contain the panel, and it packs and adds the panel to the jframe.
 - **Game.java** - Game is the jpanel class that displays the game, and it also contains all the game logic. It implements ActionListener and KeyListener. KeyListener has methods that get invoked when a key is pressed, while action listener is invoked when the timer is run. Important properties:
@@ -36,6 +36,12 @@ The project has multiple methods, classes, and objects. Each part is listed belo
 - **Fence.java** - Fence is a child class of ELement and since it's position stays the same through out the whole code, it doesn't have a move function and is simply painted when called. 
 - **Mho.java** - This class is to create the mho object. Inside this class, there is the code which repositions the mho based on where the player is and calls the move() method to do so. See the comments. 
 - **Player.java** - The final class is the Player.java class. An object of this class is created in Game.java, and is involved with the key and actionListener to change the player's position based on the key presses. In Player.java, the movePlayer method takes in the key code given to it by actionListener, and then changes the x or y position based on the key, which then is given a 6x multiplier in the move method of element, as is the same with Mho. 
+
+## Acknowledgements
+
+The project work was split among the 3 members. I (Caleb) was in charge of creating each element and doing some of the game logic, as well as the smooth movement. Brion was in charge of working on the rest of the game logic and the mho movement. Julius worked on the key listeners.
+
+I would additionally like to thank Jason's group from Period 4 for giving me the idea of having smooth movement and the scoreboard below the game. :+1::skin-tone-6: to them.
 
 
 

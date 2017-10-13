@@ -262,13 +262,12 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 			t.stop(); // stops timer once done and resets counter to 0
 			counter = 0; // resets counter
 			roundCoords(); // rounds the coordinates to the correct places
-			for (int i = mhos.size()-1; i >= 0; i--) {
+			for (int i = 0; i < mhos.size(); i++) { // loops through mhos to check if any mhos hit a fence
 				if (isEmpty(mhos.get(i).x, mhos.get(i).y) == 1) {
 					System.out.print(i + " ");
-					mhos.remove(i); // loops through mhos to check if any mhos hit a fence
+					mhos.remove(i);
 				}
 			}
-			System.out.println();
 			repaint(); // repaints everything again
 			gameOver(); // calls game over method (see java doc)
 		}
