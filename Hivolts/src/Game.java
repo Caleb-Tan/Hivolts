@@ -18,7 +18,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 	static ArrayList<ArrayList<Integer>> jumpArea; //valid jumping locations (non-fences)
 	int key;    // set to the keycode to be used by actionListener method
 	Random rand = new Random();  // for random functions
-	int state;  // stores what state the program is in
+	int state;  // stores what state the program is in (1 = running, 2 = defeat, 3 = victory)
 	int moves;  // keeps track of how many moves were made.
 
 	Game() {
@@ -214,9 +214,9 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 			startGame(); // resets the board and repaints everything
 			repaint();
 			return;
-		} else if (key == KeyEvent.VK_J) { // if key pressed was j, which is the jump method, the player is transported to a random location
+		} else if (key == KeyEvent.VK_J) { // if J was pressed, the mhos don't move
 			ArrayList<Integer> choice;
-			choice = Game.jumpArea.get(rand.nextInt(Game.jumpArea.size())); //chooses a random valid coordinate to jump to of the possible choices
+			choice = Game.jumpArea.get(rand.nextInt(Game.jumpArea.size()));
 			player.x = choice.get(0);
 			player.y = choice.get(1);
 			moves++; // adds 1 move to the move counter

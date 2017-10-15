@@ -40,7 +40,11 @@ public class Mho extends Element {
 			
 			frame = 0;
 			if ((rightOf == 0) || (above == 0)) {
-				setD(rightOf, above);
+				if (Game.isEmpty(x + 60 * rightOf, y + 60 * above) % 2 == 0 &&
+					Game.isEmpty(x + 60 * rightOf, y + 60 * above) < 4) {
+						setD(0,0);
+				}
+				else setD(rightOf, above);
 			} else {
 				if (Game.isEmpty(x + 60 * rightOf, y + 60 * above) % 2 == 1) {
 					setD(rightOf, above);
@@ -62,8 +66,10 @@ public class Mho extends Element {
 		}
 		else move(dx, dy);
 		frame++;
-		if (frame >= 10)
+		if (frame >= 10) {
+			setD(0, 0);
 			moving = false;
+		}
 	}
 
 	private void setD(int a, int b) {
