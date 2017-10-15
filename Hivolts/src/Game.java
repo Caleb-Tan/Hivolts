@@ -10,16 +10,16 @@ import java.util.Random;
 import javax.swing.*;
 
 public class Game extends JPanel implements KeyListener, ActionListener {
-	boolean invincible = true;
+	boolean invincible = false;
 	Timer t = new Timer(1, this);
 	private Player player; // declares player object to use later
 	static ArrayList<Fence> fences = new ArrayList<>(); // contains all the fences
 	static ArrayList<Mho> mhos = new ArrayList<>(); // contains all the mhos
-	static ArrayList<ArrayList<Integer>> jumpArea;
+	static ArrayList<ArrayList<Integer>> jumpArea; //valid jumping locations (non-fences)
 	int key;    // set to the keycode to be used by actionListener method
-	Random rand = new Random();
+	Random rand = new Random();  // for random functions
 	int state;  // stores what state the program is in
-	int moves;  // keeps track of how many moves were made. Is incremented by one everytime move key is pressed
+	int moves;  // keeps track of how many moves were made.
 
 	Game() {
 		addKeyListener(this);
@@ -53,7 +53,8 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		} else if (state == 2) {
 			paintEndScreen(g, "Game Over! :(", 250); // if player has collided
 		} else if (state == 3) {
-			paintEndScreen(g, "Congrats! You won in " + Integer.toString(moves) + " moves", 100); // if there are no more mhos
+			// if there are no more mhos
+			paintEndScreen(g, "Congrats! You won in " + Integer.toString(moves) + " moves", 100);
 		}
 	}
 
@@ -130,20 +131,6 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 	}
 
 	/*
-	 * Fixes rounding errors caused by the smooth movement. Adds 12 to bring all
-	 * errors to above the actual value (bc max is +6) and uses division and
-	 * multiplication to round it down.
-	 */
-	private void roundCoords() {
-		for (int i = 0; i < mhos.size(); i++) {
-			mhos.get(i).x = (mhos.get(i).x + 12) / 60 * 60;
-			mhos.get(i).y = (mhos.get(i).y + 12) / 60 * 60;
-		}
-		player.x = (player.x + 12) / 60 * 60;
-		player.y = (player.y + 12) / 60 * 60;
-	}
-
-	/*
 	 * gameOver() method prints a game over screen if player has hit a mho/fence OR
 	 * if there are no mhos remaining
 	 */
@@ -174,17 +161,50 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		g.setFont(new Font("TimesRoman", Font.PLAIN, 20));
 		g.drawString("Press R to Restart", 290, 360);
 	}
+	
+	/*
+	 * isEmpty checks if a given coordinate on the grid is empty and/or will be empty
+	 * @param coordinates
+	 * @return whether there is a mho, fence, or if it will be occupied
+	 */
+	public static int isEmpty(int x, int y) {
+		int empty = 1;
+		boolean mhop = false, fencep = false, targp = false;
+		for (Mho mho : mhos) {
+			if ((mho.x + 12) / 60 * 60 == x && (mho.y + 12) / 60 * 60 == y) mhop = true;
+			if ((mho.tx + 12) / 60 * 60 == x && (mho.ty + 12) / 60 * 60 == y) targp = true;
+		}
+		for (Fence fence : fences) {
+			if ((fence.x + 12) / 60 * 60 == x && (fence.y + 12) / 60 * 60 == y) fencep = true;
+		}
+		/*
+		 * Codes:
+		 * 0 = square will become occupied
+		 * 1 = square is empty and will be empty
+		 * 2 = there is a mho and it will be occupied
+		 * 3 = there is a mho
+		 * 4 = there is a fence
+		 * Priority (highest to lowest): fence, mho, targeted
+		 * Mhos: 1st choice: 1 or 3
+		 * 		 2nd choice: 4
+		 * 		 3rd choice: 0 or 2
+		 * Player: Dies if 2, 3, or 4
+		 */
+		if (targp) empty = 0;
+		if (mhop) empty += 2;
+		if (fencep) empty = 4;
+		return empty;
+	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
 
 	}
-
 	@Override
 	public void keyPressed(KeyEvent e) {
 
 	}
-
+	
 	/* checks if a key pressed is equal to a key */
 	@Override
 	public void keyReleased(KeyEvent e) {
@@ -218,50 +238,8 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 			}
 		}
 	}
-	/*
-	 * isEmpty checks if a given coordinate on the grid is empty (void of mhos or
-	 * fences).
-	 * 
-	 * @param coordinates
-	 * 
-	 * @return whether there is a mho, fence, or neither at the location
-	 */
-	public static int isEmpty(int x, int y) {
-		int empty = 1;
-		boolean mhop = false, fencep = false, targp = false;
-		for (Mho mho : mhos) {
-			if ((mho.x + 12) / 60 * 60 == x && (mho.y + 12) / 60 * 60 == y) {
-				mhop = true;
-			}
-			if ((mho.tx + 12) / 60 * 60 == x && (mho.ty + 12) / 60 * 60 == y) {
-				targp = true;
-			}
-		}
-		for (Fence fence : fences) {
-			if ((fence.x + 12) / 60 * 60 == x && (fence.y + 12) / 60 * 60 == y) {
-				fencep = true;
-			}
-		}
-		/*
-		 * Codes:
-		 * 0 = square will become occupied
-		 * 1 = square is empty and will be empty
-		 * 2 = there is a mho and it will be occupied
-		 * 3 = there is a mho
-		 * 4 = there is a fence
-		 * Priority (highest to lowest): fence, mho, targeted
-		 * Mhos: 1st choice: 1 or 3
-		 * 		 2nd choice: 4
-		 * 		 3rd choice: 0 or 2
-		 * Player: Dies if 2, 3, or 4
-		 */
-		if (targp) empty = 0;
-		if (mhop) empty += 2;
-		if (fencep) empty = 4;
-		return empty;
-	}
+	
 	int counter = 0; // limits number of times actionPerformed is called
-
 	/*
 	 * implemented method is called when the timer starts. every 1 ms, the method
 	 * will be called until timer stops. move() method in Element.java increments
@@ -293,5 +271,19 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 			repaint(); // repaints everything again
 			if (!invincible) gameOver(); // calls game over method (see java doc)
 		}
+	}
+	
+	/*
+	 * Fixes rounding errors caused by the smooth movement. Adds 12 to bring all
+	 * errors to above the actual value (bc max is +6) and uses division and
+	 * multiplication to round it down.
+	 */
+	private void roundCoords() {
+		for (int i = 0; i < mhos.size(); i++) {
+			mhos.get(i).x = (mhos.get(i).x + 12) / 60 * 60;
+			mhos.get(i).y = (mhos.get(i).y + 12) / 60 * 60;
+		}
+		player.x = (player.x + 12) / 60 * 60;
+		player.y = (player.y + 12) / 60 * 60;
 	}
 }
