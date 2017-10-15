@@ -10,7 +10,7 @@ import java.util.Random;
 import javax.swing.*;
 
 public class Game extends JPanel implements KeyListener, ActionListener {
-	boolean invincible = false;
+	boolean invincible = true;
 	Timer t = new Timer(1, this);
 	private Player player; // declares player object to use later
 	static ArrayList<Fence> fences = new ArrayList<>(); // contains all the fences
@@ -149,7 +149,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 	 */
 	private void gameOver() {
 		// if player's coords are not empty, and are occupied by another element
-		if (isEmpty(player.x, player.y) > 0) {
+		if (isEmpty(player.x, player.y) > 1) {
 			// if player hits another mhoe or fence, paint the end screen saying game over
 			state = 2;
 			t.stop();
@@ -227,20 +227,37 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 	 * @return whether there is a mho, fence, or neither at the location
 	 */
 	public static int isEmpty(int x, int y) {
-		int empty = 0;
+		int empty = 1;
+		boolean mhop = false, fencep = false, targp = false;
 		for (Mho mho : mhos) {
 			if ((mho.x + 12) / 60 * 60 == x && (mho.y + 12) / 60 * 60 == y) {
-			//if (mho.x == x && mho.y == y) {
-				empty = 2; // the code 2 means there is a mho at the location
+				mhop = true;
+			}
+			if ((mho.tx + 12) / 60 * 60 == x && (mho.ty + 12) / 60 * 60 == y) {
+				targp = true;
 			}
 		}
 		for (Fence fence : fences) {
 			if ((fence.x + 12) / 60 * 60 == x && (fence.y + 12) / 60 * 60 == y) {
-			//if (fence.x == x && fence.y == y) {
-				empty += 1; // the code 1 means there is a fence at the location
-							// if both are there then the code is 3
+				fencep = true;
 			}
 		}
+		/*
+		 * Codes:
+		 * 0 = square will become occupied
+		 * 1 = square is empty and will be empty
+		 * 2 = there is a mho and it will be occupied
+		 * 3 = there is a mho
+		 * 4 = there is a fence
+		 * Priority (highest to lowest): fence, mho, targeted
+		 * Mhos: 1st choice: 1 or 3
+		 * 		 2nd choice: 4
+		 * 		 3rd choice: 0 or 2
+		 * Player: Dies if 2, 3, or 4
+		 */
+		if (targp) empty = 0;
+		if (mhop) empty += 2;
+		if (fencep) empty = 4;
 		return empty;
 	}
 	int counter = 0; // limits number of times actionPerformed is called
@@ -269,7 +286,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 			counter = 0; // resets counter
 			roundCoords(); // rounds the coordinates to the correct places
 			for (int i = mhos.size()-1; i >= 0; i--) {
-				if (isEmpty(mhos.get(i).x, mhos.get(i).y) % 2 == 1) {
+				if (isEmpty(mhos.get(i).x, mhos.get(i).y) == 4) {
 					mhos.remove(i); // loops through mhos to check if any mhos hit a fence
 				}
 			}

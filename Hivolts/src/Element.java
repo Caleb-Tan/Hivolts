@@ -20,7 +20,7 @@ public class Element {
     }
 	
 	int x, y;   // x and y variables to store the current coords of game, fence, and player
-
+	int tx, ty; //sets target location before initiating smooth movement
     /* changes the x and y based upon the new directions given to it by mho, and player */
 	protected void move(int xrel, int yrel) {
             x += (6 * xrel);
