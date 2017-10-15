@@ -2,7 +2,7 @@
 
 ## Introduction:
 
-The Hivolts project was made by Brion, Caleb, and Julius, and the goal of this project was to recreate the classic Hivolts game, in which a player avoids enemy mhos until all the mhos have run into electric fences.
+The Hivolts project was made by Brion Ye, Caleb Tan, and Julius Kim, and the goal of this project was to recreate the classic Hivolts game, in which a player avoids enemy mhos until all the mhos have run into electric fences.
 
 ## Specifications
 
@@ -46,7 +46,7 @@ The table below shows what my projected deadlines were and when I actually compl
 
 ## Acknowledgements
 
-The project work was split among the 3 members. I (Caleb) was in charge of creating each element and doing some of the game logic, as well as the smooth movement and random generation. Brion was in charge of working on the rest of the game logic and the mho movement. Julius worked on the key listeners.
+The project work was split among the 3 members. I (Caleb Tan) was in charge of creating each element and doing some of the game logic, as well as the smooth movement and random generation. This meant working on creating the death function, the restart game function, action listening, and the game over screen as well as the scoreboard. I also created the basic structure of the code. Brion was in charge of working on the rest of the game logic and the mho movement. He created the mho logic, and the algorithms for how the mhos would move in relation to the player, and there were some aspects of game logic that he worked on as well, such as the isEmpty() and roundCoords() function. Julius worked on the key listeners, or more specifically, linking the keyboard input to the player movement. 
 
 I would additionally like to thank Jason's group from Period 4 for giving me the idea of having smooth movement and the scoreboard below the game. :+1: to them.
 
