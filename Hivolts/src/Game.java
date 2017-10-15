@@ -71,7 +71,11 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		g.drawString("Winter Hivolts", 50, 770);
 		g.setFont(new Font("TimesRoman", Font.PLAIN, 18));
 		g.drawString("By Caleb, Brion, and Julius", 30, 800);
-		g.drawString("Mhos Remaining: " + mhos.size(), 500, 780);
+		g.drawString("Controls: (U/D/L/R=Up/Down/Left/Right)", 230, 750);
+		g.drawString("Q: UL   W: U   E: UR   A: L", 280, 770);
+		g.drawString("Z: DL   X: D   C: DR   D: R", 285, 790);
+		g.drawString("S: Stay     J: Jump", 330, 810);
+		g.drawString("Mhos Remaining: " + mhos.size(), 530, 780);
 	}
 
 	/*
